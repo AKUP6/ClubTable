@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Panel - Code4Good | Yale Clubs</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="owner-panel">
+            <!-- Header Section -->
+            <div class="owner-header">
+                <h1 class="owner-title">Owner Panel</h1>
+                <button class="btn-view-public">View Public Page</button>
+            </div>
+
+
+            <!-- Overview Content -->
+            <div class="owner-overview">
+                <!-- Club Banner -->
+                <div class="club-banner">
+                    <h2 class="club-name-banner">Code4Good</h2>
+                    <p class="club-category-banner">Academic</p>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions-section">
+                    <h3 class="section-heading">Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Notification</span>
+                        </button>
+                        <a href="club-applications.html" class="quick-action-btn">
+                            <i class="fas fa-file-alt"></i>
+                            <span>View Applications</span>
+                        </a>
+                        <button class="quick-action-btn">
+                            <i class="fas fa-calendar"></i>
+                            <span>Add Meeting Time</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Edit Club Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Club Description -->
+                <div class="club-description-section">
+                    <div class="club-tags">
+                        <span class="club-tag active">Academic</span>
+                        <span class="club-tag">Technology</span>
+                        <span class="club-tag">Service</span>
+                    </div>
+                    <p class="club-description-title">Academic Technology Service</p>
+                    <p class="club-description-text">Building software solutions for local nonprofits and social impact organizations.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="club-navbar.js"></script>
+</body>
+</html>

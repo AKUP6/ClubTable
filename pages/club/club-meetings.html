@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetings - Code4Good | Yale Clubs</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="owner-panel">
+            <!-- Header Section -->
+            <div class="owner-header">
+                <div>
+                    <h1 class="owner-title">Owner Panel</h1>
+                    <p class="owner-subtitle">Managing: Code4Good</p>
+                </div>
+                <button class="btn-view-public">View Public Page</button>
+            </div>
+
+            <!-- Meeting Schedule Section -->
+            <div class="meeting-schedule-section">
+                <div class="section-header-with-button">
+                    <h2 class="section-heading">Meeting Schedule</h2>
+                    <button class="btn-add-meeting">
+                        <i class="fas fa-plus"></i>
+                        Add New Meeting
+                    </button>
+                </div>
+                
+                <div class="meeting-schedule-list">
+                    <div class="meeting-schedule-item">
+                        <i class="fas fa-calendar-alt schedule-icon"></i>
+                        <div class="schedule-content">
+                            <div class="schedule-day">Sunday</div>
+                            <div class="schedule-details">
+                                <span class="schedule-time">2:00 PM - 5:00 PM</span>
+                                <span class="schedule-location">Bass Library</span>
+                            </div>
+                        </div>
+                        <div class="schedule-actions">
+                            <a href="#" class="schedule-edit">Edit</a>
+                            <a href="#" class="schedule-remove">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events Section -->
+            <div class="upcoming-events-section">
+                <h2 class="section-heading">Upcoming Events</h2>
+                
+                <div class="events-list">
+                    <div class="event-item">
+                        <div class="event-content">
+                            <div class="event-title">Weekly Meeting</div>
+                            <div class="event-details">
+                                <span class="event-detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    11/27/2025
+                                </span>
+                                <span class="event-detail">
+                                    <i class="fas fa-clock"></i>
+                                    7:00 PM
+                                </span>
+                                <span class="event-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Bass Library
+                                </span>
+                            </div>
+                        </div>
+                        <div class="event-rsvps">24 RSVPs</div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-content">
+                            <div class="event-title">Project Showcase</div>
+                            <div class="event-details">
+                                <span class="event-detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    12/4/2025
+                                </span>
+                                <span class="event-detail">
+                                    <i class="fas fa-clock"></i>
+                                    6:00 PM
+                                </span>
+                                <span class="event-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Woolsey Hall
+                                </span>
+                            </div>
+                        </div>
+                        <div class="event-rsvps">45 RSVPs</div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-content">
+                            <div class="event-title">End of Semester Social</div>
+                            <div class="event-details">
+                                <span class="event-detail">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    12/11/2025
+                                </span>
+                                <span class="event-detail">
+                                    <i class="fas fa-clock"></i>
+                                    8:00 PM
+                                </span>
+                                <span class="event-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Common Room
+                                </span>
+                            </div>
+                        </div>
+                        <div class="event-rsvps">32 RSVPs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="club-navbar.js"></script>
+</body>
+</html>
+

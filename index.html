@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yale Clubs - Sign In</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Column - Promotional Content -->
+        <div class="left-column">
+            <div class="content-wrapper">
+                <h1 class="logo">Yale Clubs</h1>
+                <h2 class="headline">Discover Your Community</h2>
+                <p class="description">
+                    Connect with student organizations, explore opportunities, and build lasting relationships at Yale.
+                </p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Find Your Passion</h3>
+                            <p>Browse hundreds of clubs across all interests and categories.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Manage Your Time</h3>
+                            <p>Coordinate schedules and never miss an important meeting.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Build Community</h3>
+                            <p>Connect with like-minded students and make lifelong friends.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Login Form -->
+        <div class="right-column">
+            <div class="login-card">
+                <h2 class="card-title">Welcome Back!</h2>
+                <p class="card-subtitle">Sign in to access your club dashboard</p>
+                
+                <form class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">
+                            <span>Remember Me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Sign In</button>
+                </form>
+                
+                <div class="divider">
+                    <span>Or Continue With</span>
+                </div>
+                
+                <button type="button" class="btn-cas">
+                    Log in with Yale CAS
+                </button>
+                <script>
+                    document.querySelector('.login-form').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        window.location.href = '/pages/student/dashboard.html';
+                    });
+                    
+                    document.querySelector('.btn-cas').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.location.href = '/pages/student/dashboard.html';
+                    });
+                </script>
+                <p class="signup-link">
+                    Don't have an account? <a href="#">Sign up</a>
+                </p>
+                <p class="signup-link" style="margin-top: 12px;">
+                    <a href="/pages/club/club-portal.html" style="color: #718096; font-size: 13px;">Club Owner Portal →</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

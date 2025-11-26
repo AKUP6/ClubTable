@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Settings - Code4Good | Yale Clubs</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="owner-panel">
+            <!-- Header Section -->
+            <div class="owner-header">
+                <div>
+                    <h1 class="owner-title">Owner Panel</h1>
+                    <p class="owner-subtitle">Managing: Code4Good</p>
+                </div>
+                <button class="btn-view-public">View Public Page</button>
+            </div>
+
+            <!-- Club Information Section -->
+            <div class="settings-section">
+                <div class="section-header-with-button">
+                    <h2 class="section-heading">Club Information</h2>
+                    <button class="btn-edit-details">
+                        <i class="fas fa-pencil-alt"></i>
+                        Edit Details
+                    </button>
+                </div>
+
+                <div class="settings-form">
+                    <!-- Club Name -->
+                    <div class="form-group">
+                        <label for="club-name" class="form-label">Club Name</label>
+                        <input type="text" id="club-name" name="club-name" class="form-input" value="Code4Good">
+                    </div>
+
+                    <!-- Banner Image -->
+                    <div class="form-group">
+                        <label class="form-label">Banner Image</label>
+                        <div class="banner-upload-area" id="banner-upload">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">Click to upload new banner image</p>
+                            <p class="upload-hint">Recommended: 1200x400px, JPG or PNG</p>
+                            <input type="file" id="banner-input" class="file-input" accept=".jpg,.jpeg,.png">
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea id="description" name="description" class="form-textarea" rows="4">Building software solutions for local nonprofits and social impact organizations.</textarea>
+                    </div>
+
+                    <!-- Tags / Categories -->
+                    <div class="form-group">
+                        <label class="form-label">Tags / Categories</label>
+                        <div class="tags-container">
+                            <span class="settings-tag active">Academic</span>
+                            <span class="settings-tag active">Technology</span>
+                            <span class="settings-tag active">Service</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Settings Section -->
+            <div class="settings-section">
+                <h2 class="section-heading">Application Settings</h2>
+
+                <div class="settings-form">
+                    <!-- Application Status -->
+                    <div class="form-group">
+                        <div class="toggle-setting">
+                            <div class="toggle-setting-info">
+                                <label class="form-label">Application Status</label>
+                                <p class="setting-description">Control whether new applications can be submitted</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Application Deadline -->
+                    <div class="form-group">
+                        <label for="deadline" class="form-label">Application Deadline</label>
+                        <input type="date" id="deadline" name="deadline" class="form-input" value="2025-12-10">
+                    </div>
+
+                    <!-- Maximum Applicants -->
+                    <div class="form-group">
+                        <label for="max-applicants" class="form-label">Maximum Applicants (Optional)</label>
+                        <p class="setting-description">Leave blank for no limit</p>
+                        <input type="number" id="max-applicants" name="max-applicants" class="form-input" placeholder="">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leadership Team Section -->
+            <div class="settings-section">
+                <h2 class="section-heading">Leadership Team</h2>
+
+                <div class="leadership-list">
+                    <div class="leadership-item">
+                        <div class="leadership-content">
+                            <div class="leadership-name">Alex Wong</div>
+                            <div class="leadership-details">
+                                <span class="leadership-title">Technical Lead</span>
+                                <span class="leadership-email">alex.wong@yale.edu</span>
+                            </div>
+                        </div>
+                        <div class="leadership-actions">
+                            <a href="#" class="leadership-edit">Edit</a>
+                            <a href="#" class="leadership-remove">Remove</a>
+                        </div>
+                    </div>
+
+                    <div class="leadership-item">
+                        <div class="leadership-content">
+                            <div class="leadership-name">Jasmine Foster</div>
+                            <div class="leadership-details">
+                                <span class="leadership-title">Project Manager</span>
+                                <span class="leadership-email">jasmine.f@yale.edu</span>
+                            </div>
+                        </div>
+                        <div class="leadership-actions">
+                            <a href="#" class="leadership-edit">Edit</a>
+                            <a href="#" class="leadership-remove">Remove</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-add-leader">
+                    <i class="fas fa-plus"></i>
+                    Add Leader
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="club-navbar.js"></script>
+    <script>
+        // Banner upload handling
+        const bannerUpload = document.getElementById('banner-upload');
+        const bannerInput = document.getElementById('banner-input');
+
+        bannerUpload.addEventListener('click', () => bannerInput.click());
+
+        bannerUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            bannerUpload.classList.add('drag-over');
+        });
+
+        bannerUpload.addEventListener('dragleave', () => {
+            bannerUpload.classList.remove('drag-over');
+        });
+
+        bannerUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            bannerUpload.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                bannerInput.files = files;
+                updateBannerUpload();
+            }
+        });
+
+        bannerInput.addEventListener('change', updateBannerUpload);
+
+        function updateBannerUpload() {
+            if (bannerInput.files.length > 0) {
+                bannerUpload.classList.add('has-file');
+                const fileName = bannerInput.files[0].name;
+                bannerUpload.querySelector('.upload-text').textContent = fileName;
+            }
+        }
+    </script>
+</body>
+</html>
+

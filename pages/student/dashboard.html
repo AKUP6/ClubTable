@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yale Clubs - Dashboard</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="dashboard-page">
+            <!-- Header Section -->
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Welcome back, Student!</h1>
+                <p class="dashboard-subtitle">Here's what's happening with your clubs today.</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="dashboard-summary-cards">
+                <div class="summary-card-dashboard">
+                    <div class="summary-icon-dashboard">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="summary-content-dashboard">
+                        <div class="summary-label-dashboard">Active Clubs</div>
+                        <div class="summary-value-dashboard">3</div>
+                    </div>
+                </div>
+
+                <div class="summary-card-dashboard">
+                    <div class="summary-icon-dashboard">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="summary-content-dashboard">
+                        <div class="summary-label-dashboard">Upcoming Events</div>
+                        <div class="summary-value-dashboard">5</div>
+                    </div>
+                </div>
+
+                <div class="summary-card-dashboard">
+                    <div class="summary-icon-dashboard">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="summary-content-dashboard">
+                        <div class="summary-label-dashboard">Pending Applications</div>
+                        <div class="summary-value-dashboard">2</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column - Your Clubs -->
+                <div class="dashboard-main-column">
+                    <div class="dashboard-section">
+                        <div class="section-header-dashboard">
+                            <h2 class="section-title-dashboard">Your Clubs</h2>
+                            <a href="#" class="section-link-dashboard">Browse All Clubs</a>
+                        </div>
+
+                        <div class="clubs-list-dashboard">
+                            <!-- Club 1: Yale Debate Association -->
+                            <div class="club-card-dashboard">
+                                <div class="club-image-placeholder">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="club-details-dashboard">
+                                    <div class="club-header-dashboard">
+                                        <h3 class="club-name-dashboard">Yale Debate Association</h3>
+                                    </div>
+                                    <p class="club-meta">Member · Joined Aug 2025</p>
+                                    <div class="club-next-event">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>Next Event: Practice Tournament - 11/29/2025 at 2:00 PM</span>
+                                    </div>
+                                    <button class="btn-view-details">View Details</button>
+                                </div>
+                            </div>
+
+                            <!-- Club 2: Yale Daily News -->
+                            <div class="club-card-dashboard">
+                                <div class="club-image-placeholder">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <div class="club-details-dashboard">
+                                    <div class="club-header-dashboard">
+                                        <h3 class="club-name-dashboard">Yale Daily News</h3>
+                                    </div>
+                                    <p class="club-meta">Member · Joined Sep 2025</p>
+                                    <button class="btn-view-details">View Details</button>
+                                </div>
+                            </div>
+
+                            <!-- Club 3: Code4Good -->
+                            <div class="club-card-dashboard">
+                                <div class="club-image-placeholder">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="club-details-dashboard">
+                                    <div class="club-header-dashboard">
+                                        <h3 class="club-name-dashboard">Code4Good</h3>
+                                        <span class="leader-badge">Leader</span>
+                                    </div>
+                                    <p class="club-meta">Leadership · Joined Aug 2024</p>
+                                    <div class="club-actions-dashboard">
+                                        <button class="btn-view-details">View Details</button>
+                                        <button class="btn-manage-club">Manage Club</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Sidebar -->
+                <div class="dashboard-sidebar">
+                    <!-- Upcoming Events -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Upcoming Events</h3>
+                        <div class="event-item">
+                            <div class="event-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="event-details">
+                                <div class="event-name">Practice Tournament</div>
+                                <div class="event-club">Yale Debate Association</div>
+                                <div class="event-time">11/29/2025 at 2:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Quick Actions</h3>
+                        <div class="quick-actions-list">
+                            <a href="#" class="quick-action-item">
+                                <i class="fas fa-search"></i>
+                                <span>Browse All Clubs</span>
+                            </a>
+                            <a href="applications.html" class="quick-action-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span>View Applications</span>
+                            </a>
+                            <a href="calendar.html" class="quick-action-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Update Availability</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Application Deadlines -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Application Deadlines</h3>
+                        <div class="deadline-list">
+                            <div class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="deadline-club">Yale Taekwondo</div>
+                                    <div class="deadline-time">6 days left</div>
+                                </div>
+                                <span class="deadline-tag urgent">Urgent</span>
+                            </div>
+                            <div class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="deadline-club">Yale Daily News</div>
+                                    <div class="deadline-time">7 days left</div>
+                                </div>
+                                <span class="deadline-tag soon">Soon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
+

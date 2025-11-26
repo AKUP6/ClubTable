@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Code4Good | Yale Clubs</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="owner-panel">
+            <!-- Header Section -->
+            <div class="owner-header">
+                <div>
+                    <h1 class="owner-title">Owner Panel</h1>
+                    <p class="owner-subtitle">Managing: Code4Good</p>
+                </div>
+                <button class="btn-view-public">View Public Page</button>
+            </div>
+
+            <!-- Send Notification Section -->
+            <div class="notification-form-section">
+                <h2 class="section-heading">Send Notification</h2>
+                
+                <form class="notification-form">
+                    <!-- Audience Field -->
+                    <div class="form-group">
+                        <label for="audience" class="form-label">Audience</label>
+                        <select id="audience" name="audience" class="form-select">
+                            <option value="all">All Members</option>
+                            <option value="applicants">Applicants</option>
+                            <option value="accepted">Accepted Members</option>
+                            <option value="waitlisted">Waitlisted</option>
+                        </select>
+                    </div>
+
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" id="title" name="title" class="form-input" placeholder="e.g., Upcoming Meeting This Thursday">
+                    </div>
+
+                    <!-- Message Field -->
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-textarea" rows="6" placeholder="Write your announcement here..."></textarea>
+                    </div>
+
+                    <!-- Attachment Field -->
+                    <div class="form-group">
+                        <label class="form-label">Attachment (Optional)</label>
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p class="upload-text">Click to upload or drag and drop</p>
+                            <p class="upload-hint">PDF, DOC, JPG, PNG (Max 10MB)</p>
+                            <input type="file" id="file-input" class="file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-send-notification">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Notification
+                        </button>
+                        <button type="button" class="btn-save-draft">Save Draft</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sent Notifications Section -->
+            <div class="sent-notifications-section">
+                <h2 class="section-heading">Sent Notifications</h2>
+                <div class="notifications-list">
+                    <div class="notification-item">
+                        <div class="notification-content">
+                            <div class="notification-title">Meeting Reminder - This Thursday</div>
+                            <div class="notification-meta">Sent to 28 recipients · 11/23/2025</div>
+                        </div>
+                        <span class="notification-status delivered">delivered</span>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-content">
+                            <div class="notification-title">Welcome New Members!</div>
+                            <div class="notification-meta">Sent to 35 recipients · 11/19/2025</div>
+                        </div>
+                        <span class="notification-status delivered">delivered</span>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-content">
+                            <div class="notification-title">Application Update</div>
+                            <div class="notification-meta">Sent to 12 recipients · 11/17/2025</div>
+                        </div>
+                        <span class="notification-status delivered">delivered</span>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-content">
+                            <div class="notification-title">Holiday Break Schedule</div>
+                            <div class="notification-meta">Sent to 28 recipients · 11/14/2025</div>
+                        </div>
+                        <span class="notification-status delivered">delivered</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="club-navbar.js"></script>
+    <script>
+        // File upload handling
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                updateUploadArea();
+            }
+        });
+
+        fileInput.addEventListener('change', updateUploadArea);
+
+        function updateUploadArea() {
+            if (fileInput.files.length > 0) {
+                uploadArea.classList.add('has-file');
+                const fileName = fileInput.files[0].name;
+                uploadArea.querySelector('.upload-text').textContent = fileName;
+            }
+        }
+
+        // Form submission
+        document.querySelector('.notification-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Notification sent!');
+        });
+    </script>
+</body>
+</html>
+

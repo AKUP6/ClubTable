@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Yale Clubs</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="profile-page">
+            <!-- Header Section -->
+            <div class="page-header">
+                <h1 class="page-title">My Profile</h1>
+                <p class="page-subtitle">Manage your personal information and preferences</p>
+            </div>
+
+            <!-- Profile Card Section -->
+            <div class="profile-card">
+                <div class="profile-picture-section">
+                    <div class="profile-picture">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <button class="btn-change-photo">Change Photo</button>
+                </div>
+                <div class="profile-info-section">
+                    <div class="profile-header-actions">
+                        <h2 class="profile-name">Alex Student</h2>
+                        <button class="btn-edit-profile">
+                            <i class="fas fa-pencil-alt"></i> Edit Profile
+                        </button>
+                    </div>
+                    <p class="profile-title">Junior · Computer Science</p>
+                    <div class="profile-details">
+                        <div class="profile-detail-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>alex.student@yale.edu</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(203) 555-0123</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <i class="fas fa-building"></i>
+                            <span>Davenport College</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Class of 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Me Section -->
+            <div class="profile-section">
+                <h3 class="section-title">About Me</h3>
+                <p class="section-content">Passionate about technology, social impact, and bringing people together. I'm involved in several campus organizations and love exploring new ways to make a difference.</p>
+                <a href="#" class="section-link">Edit bio</a>
+            </div>
+
+            <!-- Interests & Skills Section -->
+            <div class="profile-section">
+                <h3 class="section-title">Interests & Skills</h3>
+                <div class="skills-tags">
+                    <span class="skill-tag">Software Development</span>
+                    <span class="skill-tag">Public Speaking</span>
+                    <span class="skill-tag">Community Service</span>
+                    <span class="skill-tag">Writing</span>
+                    <span class="skill-tag">Event Planning</span>
+                    <span class="skill-tag">Leadership</span>
+                    <span class="skill-tag">Design</span>
+                    <span class="skill-tag">Research</span>
+                </div>
+                <a href="#" class="section-link">Add more interests</a>
+            </div>
+
+            <!-- My Clubs Section -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h3 class="section-title">My Clubs</h3>
+                    <a href="#" class="section-link">View all</a>
+                </div>
+                <div class="clubs-list">
+                    <div class="club-item">
+                        <div class="club-icon">Y</div>
+                        <div class="club-info">
+                            <div class="club-name">Yale Debate Association</div>
+                            <div class="club-role">Member</div>
+                        </div>
+                        <a href="#" class="club-view-link">View</a>
+                    </div>
+                    <div class="club-item">
+                        <div class="club-icon">Y</div>
+                        <div class="club-info">
+                            <div class="club-name">Yale Daily News</div>
+                            <div class="club-role">Member</div>
+                        </div>
+                        <a href="#" class="club-view-link">View</a>
+                    </div>
+                    <div class="club-item">
+                        <div class="club-icon">C</div>
+                        <div class="club-info">
+                            <div class="club-name">Code4Good</div>
+                            <div class="club-role">Leadership</div>
+                        </div>
+                        <a href="#" class="club-view-link">View</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preferences Section -->
+            <div class="profile-section">
+                <h3 class="section-title">Preferences</h3>
+                <div class="preference-item">
+                    <div class="preference-info">
+                        <div class="preference-name">Email Notifications</div>
+                        <div class="preference-description">Receive updates about your clubs and applications</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="preference-item">
+                    <div class="preference-info">
+                        <div class="preference-name">Calendar Sharing</div>
+                        <div class="preference-description">Share availability with your clubs</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="preference-item">
+                    <div class="preference-info">
+                        <div class="preference-name">Profile Visibility</div>
+                        <div class="preference-description">Make your profile visible to club leaders</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Account Section -->
+            <div class="profile-section">
+                <h3 class="section-title">Account</h3>
+                <div class="account-links">
+                    <a href="#" class="account-link">Change Password</a>
+                    <a href="#" class="account-link">Privacy Settings</a>
+                    <a href="#" class="account-link account-link-danger">Delete Account</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
+

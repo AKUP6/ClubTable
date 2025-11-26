@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications - Yale Clubs</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="applications-page">
+            <!-- Header Section -->
+            <div class="page-header">
+                <h1 class="page-title">My Applications</h1>
+                <p class="page-subtitle">Track the status of your club applications</p>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-label">Total Applications</div>
+                        <div class="summary-value">2</div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-label">Under Review</div>
+                        <div class="summary-value">1</div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon accepted">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-label">Accepted</div>
+                        <div class="summary-value">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Listings -->
+            <div class="applications-list">
+                <!-- Application 1: Community Kitchen -->
+                <div class="application-card">
+                    <div class="application-header">
+                        <div class="application-title-section">
+                            <i class="fas fa-clock application-status-icon under-review"></i>
+                            <h3 class="application-title">Community Kitchen</h3>
+                        </div>
+                        <div class="application-actions">
+                            <button class="btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                    <div class="application-info">
+                        <p class="application-date">Submitted on November 19, 2025.</p>
+                        <div class="application-status">
+                            <span class="status-badge status-under-review">Under Review</span>
+                        </div>
+                        <p class="application-message">You'll receive an email when your application is reviewed.</p>
+                    </div>
+                </div>
+
+                <!-- Application 2: Yale Debate Association -->
+                <div class="application-card">
+                    <div class="application-header">
+                        <div class="application-title-section">
+                            <i class="fas fa-check application-status-icon accepted"></i>
+                            <h3 class="application-title">Yale Debate Association</h3>
+                        </div>
+                        <div class="application-actions">
+                            <button class="btn-secondary">View Details</button>
+                            <button class="btn-primary-small">View Club</button>
+                        </div>
+                    </div>
+                    <div class="application-info">
+                        <p class="application-date">Submitted on August 24, 2025.</p>
+                        <p class="application-date">Reviewed on August 27, 2025.</p>
+                        <div class="application-status">
+                            <span class="status-badge status-accepted">Accepted</span>
+                        </div>
+                        <p class="application-message">Congratulations! You've been accepted to Yale Debate Association. Check your email for next steps.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
+

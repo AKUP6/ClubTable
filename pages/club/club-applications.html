@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications - Code4Good | Yale Clubs</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="owner-panel">
+            <!-- Header Section -->
+            <div class="owner-header">
+                <h1 class="owner-title">Applications</h1>
+            </div>
+
+            <!-- Metrics Cards -->
+            <div class="metrics-grid" style="margin-bottom: 40px;">
+                <div class="metric-card">
+                    <div class="metric-label">Total Applicants</div>
+                    <div class="metric-value">10</div>
+                    <div class="metric-note">All time</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Accepted</div>
+                    <div class="metric-value">2</div>
+                    <div class="metric-note">20% rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Pending</div>
+                    <div class="metric-value">5</div>
+                    <div class="metric-note">Needs review</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Rejected</div>
+                    <div class="metric-value">1</div>
+                    <div class="metric-note">10% rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Waitlisted</div>
+                    <div class="metric-value">2</div>
+                    <div class="metric-note">On hold</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity-section">
+                <h3 class="section-heading">Recent Activity</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-file-alt activity-icon"></i>
+                        <div class="activity-content">
+                            <div class="activity-title">New application from Sarah Johnson</div>
+                            <div class="activity-date">11/21/2025</div>
+                        </div>
+                        <span class="activity-status pending">pending</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-file-alt activity-icon"></i>
+                        <div class="activity-content">
+                            <div class="activity-title">New application from Michael Chen</div>
+                            <div class="activity-date">11/20/2025</div>
+                        </div>
+                        <span class="activity-status pending">pending</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-file-alt activity-icon"></i>
+                        <div class="activity-content">
+                            <div class="activity-title">New application from Emma Wilson</div>
+                            <div class="activity-date">11/19/2025</div>
+                        </div>
+                        <span class="activity-status accepted">accepted</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-file-alt activity-icon"></i>
+                        <div class="activity-content">
+                            <div class="activity-title">New application from Alex Martinez</div>
+                            <div class="activity-date">11/18/2025</div>
+                        </div>
+                        <span class="activity-status pending">pending</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-file-alt activity-icon"></i>
+                        <div class="activity-content">
+                            <div class="activity-title">New application from Jessica Lee</div>
+                            <div class="activity-date">11/17/2025</div>
+                        </div>
+                        <span class="activity-status accepted">accepted</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="club-navbar.js"></script>
+</body>
+</html>
+

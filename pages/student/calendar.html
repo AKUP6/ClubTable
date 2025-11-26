@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calendar - Yale Clubs</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Bar will be inserted by JavaScript -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="calendar-page">
+            <!-- Header Section -->
+            <div class="calendar-header">
+                <h1 class="calendar-title">My Calendar</h1>
+                <p class="calendar-subtitle">Manage your weekly availability and let clubs know when you're free</p>
+            </div>
+
+            <!-- About Your Availability Section -->
+            <div class="info-box">
+                <div class="info-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="info-content">
+                    <h3 class="info-title">About Your Availability</h3>
+                    <p class="info-description">Share your weekly schedule to help clubs plan meetings at convenient times. Your availability is only visible to clubs you're a member of or have applied to. You can update this anytime.</p>
+                </div>
+            </div>
+
+            <!-- Mark Your Available Times Section -->
+            <div class="availability-section">
+                <div class="availability-header">
+                    <div>
+                        <h2 class="availability-title">Mark Your Available Times</h2>
+                        <p class="availability-subtitle">Click on time slots to mark your availability. Clubs can view this to schedule meetings.</p>
+                    </div>
+                    <div class="week-navigation">
+                        <button class="week-nav-btn" id="prev-week">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="week-display" id="week-display">Week of Nov 24</span>
+                        <button class="week-nav-btn" id="next-week">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div class="calendar-grid-container">
+                    <div class="calendar-grid">
+                        <!-- Time slots column -->
+                        <div class="time-column">
+                            <div class="time-slot">8 AM</div>
+                            <div class="time-slot">9 AM</div>
+                            <div class="time-slot">10 AM</div>
+                            <div class="time-slot">11 AM</div>
+                            <div class="time-slot">12 PM</div>
+                            <div class="time-slot">1 PM</div>
+                            <div class="time-slot">2 PM</div>
+                            <div class="time-slot">3 PM</div>
+                            <div class="time-slot">4 PM</div>
+                            <div class="time-slot">5 PM</div>
+                            <div class="time-slot">6 PM</div>
+                            <div class="time-slot">7 PM</div>
+                            <div class="time-slot">8 PM</div>
+                            <div class="time-slot">9 PM</div>
+                        </div>
+
+                        <!-- Days grid -->
+                        <div class="days-grid">
+                            <!-- Day headers -->
+                            <div class="day-header">Monday</div>
+                            <div class="day-header">Tuesday</div>
+                            <div class="day-header">Wednesday</div>
+                            <div class="day-header">Thursday</div>
+                            <div class="day-header">Friday</div>
+                            <div class="day-header">Saturday</div>
+                            <div class="day-header">Sunday</div>
+
+                            <!-- Time slot cells (14 time slots × 7 days = 98 cells) -->
+                            <!-- Monday -->
+                            <div class="time-cell" data-day="monday" data-time="8"></div>
+                            <div class="time-cell" data-day="monday" data-time="9"></div>
+                            <div class="time-cell" data-day="monday" data-time="10"></div>
+                            <div class="time-cell" data-day="monday" data-time="11"></div>
+                            <div class="time-cell" data-day="monday" data-time="12"></div>
+                            <div class="time-cell" data-day="monday" data-time="13"></div>
+                            <div class="time-cell" data-day="monday" data-time="14"></div>
+                            <div class="time-cell" data-day="monday" data-time="15"></div>
+                            <div class="time-cell" data-day="monday" data-time="16"></div>
+                            <div class="time-cell" data-day="monday" data-time="17"></div>
+                            <div class="time-cell" data-day="monday" data-time="18"></div>
+                            <div class="time-cell" data-day="monday" data-time="19"></div>
+                            <div class="time-cell" data-day="monday" data-time="20"></div>
+                            <div class="time-cell" data-day="monday" data-time="21"></div>
+
+                            <!-- Tuesday -->
+                            <div class="time-cell" data-day="tuesday" data-time="8"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="9"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="10"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="11"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="12"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="13"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="14"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="15"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="16"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="17"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="18"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="19"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="20"></div>
+                            <div class="time-cell" data-day="tuesday" data-time="21"></div>
+
+                            <!-- Wednesday -->
+                            <div class="time-cell" data-day="wednesday" data-time="8"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="9"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="10"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="11"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="12"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="13"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="14"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="15"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="16"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="17"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="18"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="19"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="20"></div>
+                            <div class="time-cell" data-day="wednesday" data-time="21"></div>
+
+                            <!-- Thursday -->
+                            <div class="time-cell" data-day="thursday" data-time="8"></div>
+                            <div class="time-cell" data-day="thursday" data-time="9"></div>
+                            <div class="time-cell" data-day="thursday" data-time="10"></div>
+                            <div class="time-cell" data-day="thursday" data-time="11"></div>
+                            <div class="time-cell" data-day="thursday" data-time="12"></div>
+                            <div class="time-cell" data-day="thursday" data-time="13"></div>
+                            <div class="time-cell" data-day="thursday" data-time="14"></div>
+                            <div class="time-cell" data-day="thursday" data-time="15"></div>
+                            <div class="time-cell" data-day="thursday" data-time="16"></div>
+                            <div class="time-cell" data-day="thursday" data-time="17"></div>
+                            <div class="time-cell" data-day="thursday" data-time="18"></div>
+                            <div class="time-cell" data-day="thursday" data-time="19"></div>
+                            <div class="time-cell" data-day="thursday" data-time="20"></div>
+                            <div class="time-cell" data-day="thursday" data-time="21"></div>
+
+                            <!-- Friday -->
+                            <div class="time-cell" data-day="friday" data-time="8"></div>
+                            <div class="time-cell" data-day="friday" data-time="9"></div>
+                            <div class="time-cell" data-day="friday" data-time="10"></div>
+                            <div class="time-cell" data-day="friday" data-time="11"></div>
+                            <div class="time-cell" data-day="friday" data-time="12"></div>
+                            <div class="time-cell" data-day="friday" data-time="13"></div>
+                            <div class="time-cell" data-day="friday" data-time="14"></div>
+                            <div class="time-cell" data-day="friday" data-time="15"></div>
+                            <div class="time-cell" data-day="friday" data-time="16"></div>
+                            <div class="time-cell" data-day="friday" data-time="17"></div>
+                            <div class="time-cell" data-day="friday" data-time="18"></div>
+                            <div class="time-cell" data-day="friday" data-time="19"></div>
+                            <div class="time-cell" data-day="friday" data-time="20"></div>
+                            <div class="time-cell" data-day="friday" data-time="21"></div>
+
+                            <!-- Saturday -->
+                            <div class="time-cell" data-day="saturday" data-time="8"></div>
+                            <div class="time-cell" data-day="saturday" data-time="9"></div>
+                            <div class="time-cell" data-day="saturday" data-time="10"></div>
+                            <div class="time-cell" data-day="saturday" data-time="11"></div>
+                            <div class="time-cell" data-day="saturday" data-time="12"></div>
+                            <div class="time-cell" data-day="saturday" data-time="13"></div>
+                            <div class="time-cell" data-day="saturday" data-time="14"></div>
+                            <div class="time-cell" data-day="saturday" data-time="15"></div>
+                            <div class="time-cell" data-day="saturday" data-time="16"></div>
+                            <div class="time-cell" data-day="saturday" data-time="17"></div>
+                            <div class="time-cell" data-day="saturday" data-time="18"></div>
+                            <div class="time-cell" data-day="saturday" data-time="19"></div>
+                            <div class="time-cell" data-day="saturday" data-time="20"></div>
+                            <div class="time-cell" data-day="saturday" data-time="21"></div>
+
+                            <!-- Sunday -->
+                            <div class="time-cell" data-day="sunday" data-time="8"></div>
+                            <div class="time-cell" data-day="sunday" data-time="9"></div>
+                            <div class="time-cell" data-day="sunday" data-time="10"></div>
+                            <div class="time-cell" data-day="sunday" data-time="11"></div>
+                            <div class="time-cell" data-day="sunday" data-time="12"></div>
+                            <div class="time-cell" data-day="sunday" data-time="13"></div>
+                            <div class="time-cell" data-day="sunday" data-time="14"></div>
+                            <div class="time-cell" data-day="sunday" data-time="15"></div>
+                            <div class="time-cell" data-day="sunday" data-time="16"></div>
+                            <div class="time-cell" data-day="sunday" data-time="17"></div>
+                            <div class="time-cell" data-day="sunday" data-time="18"></div>
+                            <div class="time-cell" data-day="sunday" data-time="19"></div>
+                            <div class="time-cell" data-day="sunday" data-time="20"></div>
+                            <div class="time-cell" data-day="sunday" data-time="21"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <div class="legend-box available"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box unavailable"></div>
+                        <span>Unavailable</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Sections -->
+            <div class="calendar-bottom-sections">
+                <!-- Tips for Accuracy -->
+                <div class="tips-section">
+                    <div class="section-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="section-content">
+                        <h3 class="section-title">Tips for Accuracy</h3>
+                        <ul class="tips-list">
+                            <li>Mark only times when you're consistently available</li>
+                            <li>Update your calendar when your schedule changes</li>
+                            <li>Consider travel time between classes and meetings</li>
+                            <li>Block out time for meals and personal commitments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="privacy-section">
+                    <div class="section-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="section-content">
+                        <h3 class="section-title">Privacy Settings</h3>
+                        <div class="privacy-options">
+                            <label class="privacy-option">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                <div class="privacy-option-content">
+                                    <div class="privacy-option-title">Share with all my clubs</div>
+                                    <div class="privacy-option-description">Clubs you're a member of can see your availability</div>
+                                </div>
+                            </label>
+                            <label class="privacy-option">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                <div class="privacy-option-content">
+                                    <div class="privacy-option-title">Share with clubs I've applied to</div>
+                                    <div class="privacy-option-description">Helps clubs plan interviews and orientation</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="navbar.js"></script>
+    <script src="calendar.js"></script>
+</body>
+</html>
+
