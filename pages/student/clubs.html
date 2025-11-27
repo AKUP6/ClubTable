@@ -23,181 +23,78 @@
                 <p class="page-subtitle">Browse and discover clubs at Yale</p>
             </div>
 
+            <!-- Search and Filters -->
+            <div class="clubs-controls">
+                <!-- Search Bar -->
+                <div class="clubs-search-container">
+                    <div class="clubs-search-wrapper">
+                        <i class="fas fa-search clubs-search-icon"></i>
+                        <input 
+                            type="text" 
+                            id="club-search" 
+                            class="clubs-search-input" 
+                            placeholder="Search clubs by name..."
+                        >
+                    </div>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="clubs-filters">
+                    <button class="club-filter-btn active" data-filter="all">All</button>
+                    <button class="club-filter-btn" data-filter="open">Open Join</button>
+                    <button class="club-filter-btn" data-filter="application">Application Required</button>
+                </div>
+            </div>
+
             <!-- Clubs Table -->
             <div class="clubs-table-container">
                 <table class="clubs-table">
                     <thead>
                         <tr class="clubs-table-header">
-                            <th class="col-add"></th>
-                            <th class="col-name">Club Name</th>
-                            <th class="col-liaison">Club Liaison / Owner</th>
-                            <th class="col-timeslot">Meeting Timeslot</th>
+                            <th class="col-name">
+                                <button class="sortable-header" data-sort="name">
+                                    Club Name
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </button>
+                            </th>
+                            <th class="col-liaison">Owner / Liaison</th>
+                            <th class="col-timeslot">Meeting Time</th>
                             <th class="col-location">Location</th>
-                            <th class="col-deadline">Application Deadline</th>
+                            <th class="col-join-type">
+                                <button class="sortable-header" data-sort="joinType">
+                                    Join Type
+                                    <i class="fas fa-sort sort-icon"></i>
+                                </button>
+                            </th>
+                            <th class="col-deadline">Deadline</th>
+                            <th class="col-action">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">YUAA</a>
-                            </td>
-                            <td class="col-liaison">Jane Doe</td>
-                            <td class="col-timeslot">MW 8:45am–10:00am</td>
-                            <td class="col-location">TBA</td>
-                            <td class="col-deadline">11/21/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Debate Association</a>
-                            </td>
-                            <td class="col-liaison">Michael Chen</td>
-                            <td class="col-timeslot">TTh 2:00pm–4:00pm</td>
-                            <td class="col-location">WLH 201</td>
-                            <td class="col-deadline">11/25/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Daily News</a>
-                            </td>
-                            <td class="col-liaison">Sarah Johnson</td>
-                            <td class="col-timeslot">F 3:00pm–5:00pm</td>
-                            <td class="col-location">202 York St</td>
-                            <td class="col-deadline">12/01/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Code4Good</a>
-                            </td>
-                            <td class="col-liaison">Alex Wong</td>
-                            <td class="col-timeslot">MW 4:00pm–6:00pm</td>
-                            <td class="col-location">AKW 200</td>
-                            <td class="col-deadline">11/30/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Political Union</a>
-                            </td>
-                            <td class="col-liaison">Emma Wilson</td>
-                            <td class="col-timeslot">TTh 7:00pm–9:00pm</td>
-                            <td class="col-location">Linsly-Chittenden 101</td>
-                            <td class="col-deadline">12/05/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Symphony Orchestra</a>
-                            </td>
-                            <td class="col-liaison">David Kim</td>
-                            <td class="col-timeslot">MWF 5:00pm–7:00pm</td>
-                            <td class="col-location">Morse Recital Hall</td>
-                            <td class="col-deadline">11/28/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Dramatic Association</a>
-                            </td>
-                            <td class="col-liaison">Jessica Martinez</td>
-                            <td class="col-timeslot">TTh 6:00pm–8:00pm</td>
-                            <td class="col-location">University Theatre</td>
-                            <td class="col-deadline">12/10/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Model UN</a>
-                            </td>
-                            <td class="col-liaison">Ryan Thompson</td>
-                            <td class="col-timeslot">W 7:00pm–9:00pm</td>
-                            <td class="col-location">Luce Hall 202</td>
-                            <td class="col-deadline">11/22/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Outdoors</a>
-                            </td>
-                            <td class="col-liaison">Olivia Brown</td>
-                            <td class="col-timeslot">F 2:00pm–4:00pm</td>
-                            <td class="col-location">Outdoor Center</td>
-                            <td class="col-deadline">12/15/2025</td>
-                        </tr>
-                        <tr class="clubs-table-row">
-                            <td class="col-add">
-                                <button class="add-club-btn" title="Add to my clubs">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                            <td class="col-name">
-                                <a href="#" class="club-name-link">Yale Entrepreneurial Society</a>
-                            </td>
-                            <td class="col-liaison">James Park</td>
-                            <td class="col-timeslot">T 6:00pm–8:00pm</td>
-                            <td class="col-location">Evans Hall 440</td>
-                            <td class="col-deadline">12/08/2025</td>
-                        </tr>
+                    <tbody id="clubs-table-body">
+                        <!-- Clubs will be populated by JavaScript -->
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
 
+    <!-- Club Details Modal -->
+    <div id="club-modal" class="club-modal">
+        <div class="club-modal-overlay"></div>
+        <div class="club-modal-content">
+            <div class="club-modal-header">
+                <h2 class="club-modal-title" id="club-modal-title">Club Name</h2>
+                <button class="club-modal-close" id="club-modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="club-modal-body" id="club-modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <script src="navbar.js"></script>
-    <script>
-        // Add club button functionality
-        document.querySelectorAll('.add-club-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const row = this.closest('tr');
-                const clubName = row.querySelector('.club-name-link').textContent;
-                if (confirm(`Add ${clubName} to your clubs?`)) {
-                    // Here you would typically make an API call
-                    alert(`${clubName} has been added to your clubs!`);
-                }
-            });
-        });
-    </script>
+    <script src="clubs.js"></script>
 </body>
 </html>
-
