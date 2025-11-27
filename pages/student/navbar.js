@@ -18,6 +18,7 @@
         const isApplications = currentPage === 'applications.html';
         const isProfile = currentPage === 'profile.html';
         const isCalendar = currentPage === 'calendar.html';
+        const isClubs = currentPage === 'clubs.html';
         
         return `
             <nav class="navbar">
@@ -28,7 +29,7 @@
                     </a>
                     <div class="nav-links">
                         <a href="dashboard.html" class="nav-link ${isDashboard ? 'active' : ''}">Dashboard</a>
-                        <a href="#" class="nav-link">Clubs</a>
+                        <a href="clubs.html" class="nav-link ${isClubs ? 'active' : ''}">Clubs</a>
                         <a href="calendar.html" class="nav-link ${isCalendar ? 'active' : ''}">Calendar</a>
                         <a href="applications.html" class="nav-link ${isApplications ? 'active' : ''}">Applications</a>
                         <a href="profile.html" class="nav-link ${isProfile ? 'active' : ''}">Profile</a>
