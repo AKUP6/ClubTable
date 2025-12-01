@@ -4,7 +4,7 @@
     <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Settings - Code4Good | Yale Clubs</title>
+    <title>Club Settings - Yale Debate Association | Yale Clubs</title>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../../css/styles.css">
@@ -21,7 +21,7 @@
             <div class="owner-header">
                 <div>
                     <h1 class="owner-title">Owner Panel</h1>
-                    <p class="owner-subtitle">Managing: Code4Good</p>
+                    <p class="owner-subtitle">Managing: Yale Debate Association</p>
                 </div>
                 <button class="btn-view-public">View Public Page</button>
             </div>
@@ -40,7 +40,7 @@
                     <!-- Club Name -->
                     <div class="form-group">
                         <label for="club-name" class="form-label">Club Name</label>
-                        <input type="text" id="club-name" name="club-name" class="form-input" value="Code4Good">
+                        <input type="text" id="club-name" name="club-name" class="form-input" value="Yale Debate Association">
                     </div>
 
                     <!-- Banner Image -->
@@ -111,33 +111,7 @@
                 <h2 class="section-heading">Leadership Team</h2>
 
                 <div class="leadership-list">
-                    <div class="leadership-item">
-                        <div class="leadership-content">
-                            <div class="leadership-name">Alex Wong</div>
-                            <div class="leadership-details">
-                                <span class="leadership-title">Technical Lead</span>
-                                <span class="leadership-email">alex.wong@yale.edu</span>
-                            </div>
-                        </div>
-                        <div class="leadership-actions">
-                            <a href="#" class="leadership-edit">Edit</a>
-                            <a href="#" class="leadership-remove">Remove</a>
-                        </div>
-                    </div>
-
-                    <div class="leadership-item">
-                        <div class="leadership-content">
-                            <div class="leadership-name">Jasmine Foster</div>
-                            <div class="leadership-details">
-                                <span class="leadership-title">Project Manager</span>
-                                <span class="leadership-email">jasmine.f@yale.edu</span>
-                            </div>
-                        </div>
-                        <div class="leadership-actions">
-                            <a href="#" class="leadership-edit">Edit</a>
-                            <a href="#" class="leadership-remove">Remove</a>
-                        </div>
-                    </div>
+                    <!-- Leadership team members will be loaded dynamically from clubs.json -->
                 </div>
 
                 <button class="btn-add-leader">
@@ -149,6 +123,7 @@
     </main>
 
     <script src="club-navbar.js"></script>
+    <script src="club-settings.js"></script>
     <script>
         // Banner upload handling
         const bannerUpload = document.getElementById('banner-upload');

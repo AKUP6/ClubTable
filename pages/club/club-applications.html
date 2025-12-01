@@ -26,81 +26,121 @@
             <div class="metrics-grid" style="margin-bottom: 40px;">
                 <div class="metric-card">
                     <div class="metric-label">Total Applicants</div>
-                    <div class="metric-value">10</div>
+                    <div class="metric-value">0</div>
                     <div class="metric-note">All time</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">Accepted</div>
-                    <div class="metric-value">2</div>
-                    <div class="metric-note">20% rate</div>
+                    <div class="metric-value">0</div>
+                    <div class="metric-note">0% rate</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">Pending</div>
-                    <div class="metric-value">5</div>
+                    <div class="metric-value">0</div>
                     <div class="metric-note">Needs review</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">Rejected</div>
-                    <div class="metric-value">1</div>
-                    <div class="metric-note">10% rate</div>
+                    <div class="metric-value">0</div>
+                    <div class="metric-note">0% rate</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-label">Waitlisted</div>
-                    <div class="metric-value">2</div>
-                    <div class="metric-note">On hold</div>
+                    <div class="metric-label">Active</div>
+                    <div class="metric-value">0</div>
+                    <div class="metric-note">Current members</div>
                 </div>
             </div>
 
-            <!-- Recent Activity -->
+            <!-- Applications List -->
             <div class="recent-activity-section">
-                <h3 class="section-heading">Recent Activity</h3>
+                <h3 class="section-heading">Applications</h3>
                 <div class="activity-list">
-                    <div class="activity-item">
-                        <i class="fas fa-file-alt activity-icon"></i>
-                        <div class="activity-content">
-                            <div class="activity-title">New application from Sarah Johnson</div>
-                            <div class="activity-date">11/21/2025</div>
-                        </div>
-                        <span class="activity-status pending">pending</span>
-                    </div>
-                    <div class="activity-item">
-                        <i class="fas fa-file-alt activity-icon"></i>
-                        <div class="activity-content">
-                            <div class="activity-title">New application from Michael Chen</div>
-                            <div class="activity-date">11/20/2025</div>
-                        </div>
-                        <span class="activity-status pending">pending</span>
-                    </div>
-                    <div class="activity-item">
-                        <i class="fas fa-file-alt activity-icon"></i>
-                        <div class="activity-content">
-                            <div class="activity-title">New application from Emma Wilson</div>
-                            <div class="activity-date">11/19/2025</div>
-                        </div>
-                        <span class="activity-status accepted">accepted</span>
-                    </div>
-                    <div class="activity-item">
-                        <i class="fas fa-file-alt activity-icon"></i>
-                        <div class="activity-content">
-                            <div class="activity-title">New application from Alex Martinez</div>
-                            <div class="activity-date">11/18/2025</div>
-                        </div>
-                        <span class="activity-status pending">pending</span>
-                    </div>
-                    <div class="activity-item">
-                        <i class="fas fa-file-alt activity-icon"></i>
-                        <div class="activity-content">
-                            <div class="activity-title">New application from Jessica Lee</div>
-                            <div class="activity-date">11/17/2025</div>
-                        </div>
-                        <span class="activity-status accepted">accepted</span>
-                    </div>
+                    <!-- Applications will be loaded dynamically -->
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- Status Edit Modal -->
+    <div id="statusModal" class="status-modal" style="display: none;">
+        <div class="status-modal-content">
+            <div class="status-modal-header">
+                <h3>Change Application Status</h3>
+                <button class="status-modal-close">&times;</button>
+            </div>
+            <div class="status-modal-body">
+                <p id="statusModalUserName" style="margin-bottom: 20px; font-weight: 600;"></p>
+                <label for="statusSelect" style="display: block; margin-bottom: 10px; font-weight: 500;">Select Status:</label>
+                <select id="statusSelect" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+                    <option value="3">Pending</option>
+                    <option value="1">Accepted</option>
+                    <option value="2">Rejected</option>
+                    <option value="4">Active Member</option>
+                    <option value="5">Admin</option>
+                </select>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+                    <button id="statusModalCancel" class="btn-secondary" style="padding: 10px 20px;">Cancel</button>
+                    <button id="statusModalSave" class="btn-primary" style="padding: 10px 20px;">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .status-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .status-modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .status-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .status-modal-header h3 {
+            margin: 0;
+        }
+        .status-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        .status-modal-close:hover {
+            color: #000;
+        }
+        .status-modal-body {
+            padding: 20px;
+        }
+        .activity-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .activity-item:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+
     <script src="club-navbar.js"></script>
+    <script src="club-applications.js"></script>
 </body>
 </html>
 
