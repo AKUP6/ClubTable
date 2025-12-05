@@ -2,134 +2,78 @@
 (function() {
     'use strict';
 
-    // Sample club data
-    const clubsData = [
-        {
-            id: '1',
-            name: 'YUAA',
-            owner: 'Jane Doe',
-            meetingTime: 'MW 8:45am–10:00am',
-            location: 'TBA',
-            applicationRequired: true,
-            applicationDeadline: '11/21/2025',
-            description: 'The Yale Undergraduate Aerospace Association (YUAA) is a student organization dedicated to advancing aerospace engineering and space exploration. We work on projects ranging from high-altitude balloon launches to rocket design and satellite development.\n\nMembers have the opportunity to work on real engineering projects, attend guest lectures from industry professionals, and participate in national competitions. No prior experience required - we welcome students from all majors!',
-            contactEmails: ['yuaa@yale.edu', 'jane.doe@yale.edu'],
-            applicationInfo: 'Applications are reviewed by the executive board. Please submit a brief statement of interest (300-500 words) describing your interest in aerospace and any relevant experience. Interviews will be conducted the week after the deadline.',
-            metadata: {
-                'Founded': '2010',
-                'Members': '60',
-                'Meeting Frequency': 'Weekly'
-            }
-        },
-        {
-            id: '2',
-            name: 'Yale Debate Association',
-            owner: 'Michael Chen',
-            meetingTime: 'TTh 2:00pm–4:00pm',
-            location: 'WLH 201',
-            applicationRequired: true,
-            applicationDeadline: '11/25/2025',
-            description: 'The Yale Debate Association is one of the oldest and most prestigious debate societies at Yale. We engage in competitive debate tournaments, host public debates on campus, and provide training for students interested in developing their argumentation and public speaking skills.\n\nOur members participate in both parliamentary and policy debate formats, competing at regional and national tournaments. We welcome students of all experience levels and provide comprehensive training workshops throughout the semester.',
-            contactEmails: ['debate@yale.edu'],
-            applicationInfo: 'Applications are reviewed by the executive board. Please submit a brief statement of interest (500 words) and your debate experience (if any). Interviews will be conducted the week after the deadline.',
-            coverImage: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800',
-            metadata: {
-                'Founded': '1892',
-                'Members': '45'
-            }
-        },
-        {
-            id: '3',
-            name: 'Yale Daily News',
-            owner: 'Sarah Johnson',
-            meetingTime: 'F 3:00pm–5:00pm',
-            location: '202 York St',
-            applicationRequired: true,
-            applicationDeadline: '12/01/2025'
-        },
-        {
-            id: '4',
-            name: 'Code4Good',
-            owner: 'Alex Wong',
-            meetingTime: 'MW 4:00pm–6:00pm',
-            location: 'AKW 200',
-            applicationRequired: false
-        },
-        {
-            id: '5',
-            name: 'Yale Political Union',
-            owner: 'Emma Wilson',
-            meetingTime: 'TTh 7:00pm–9:00pm',
-            location: 'Linsly-Chittenden 101',
-            applicationRequired: true,
-            applicationDeadline: '12/05/2025'
-        },
-        {
-            id: '6',
-            name: 'Yale Symphony Orchestra',
-            owner: 'David Kim',
-            meetingTime: 'MWF 5:00pm–7:00pm',
-            location: 'Morse Recital Hall',
-            applicationRequired: false
-        },
-        {
-            id: '7',
-            name: 'Yale Dramatic Association',
-            owner: 'Jessica Martinez',
-            meetingTime: 'TTh 6:00pm–8:00pm',
-            location: 'University Theatre',
-            applicationRequired: true,
-            applicationDeadline: '12/10/2025'
-        },
-        {
-            id: '8',
-            name: 'Yale Model UN',
-            owner: 'Ryan Thompson',
-            meetingTime: 'W 7:00pm–9:00pm',
-            location: 'Luce Hall 202',
-            applicationRequired: true,
-            applicationDeadline: '11/22/2025'
-        },
-        {
-            id: '9',
-            name: 'Yale Outdoors',
-            owner: 'Olivia Brown',
-            meetingTime: 'F 2:00pm–4:00pm',
-            location: 'Outdoor Center',
-            applicationRequired: false
-        },
-        {
-            id: '10',
-            name: 'Yale Entrepreneurial Society',
-            owner: 'James Park',
-            meetingTime: 'T 6:00pm–8:00pm',
-            location: 'Evans Hall 440',
-            applicationRequired: true,
-            applicationDeadline: '12/08/2025'
-        },
-        {
-            id: '11',
-            name: 'Yale Glee Club',
-            owner: 'Robert Smith',
-            meetingTime: 'MWF 4:00pm–6:00pm',
-            location: 'Hendrie Hall',
-            auditionRequired: true,
-            applicationDeadline: '11/30/2025',
-            description: 'The Yale Glee Club is one of Yale\'s premier a cappella groups, performing a diverse repertoire from classical to contemporary music. We perform at campus events, tour nationally and internationally, and record albums.\n\nWe sing in four-part harmony and welcome all voice parts. The group is known for its tight harmonies, dynamic performances, and strong sense of community.',
-            contactEmails: ['gleeclub@yale.edu'],
-            auditionInfo: 'Auditions consist of:\n1. Singing a prepared piece (1-2 minutes) - any song of your choice\n2. Brief vocal range check\n3. Simple sight-reading exercise (no prior experience required)\n\nAll voice parts welcome! Auditions are low-pressure and friendly.',
-            coverImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800',
-            metadata: {
-                'Founded': '1861',
-                'Members': '40',
-                'Tours': 'Annual'
-            }
-        }
-    ];
+    // Flash helper function
+    (function() {
+        let flashIdCounter = 0;
+        let flashContainer = null;
 
-    let filteredClubs = [...clubsData];
+        function initFlashContainer() {
+            if (!flashContainer) {
+                flashContainer = document.createElement('div');
+                flashContainer.className = 'flash-banner-container';
+                document.body.appendChild(flashContainer);
+            }
+            return flashContainer;
+        }
+
+        window.showFlash = function(message, type = 'success') {
+            const container = initFlashContainer();
+            const id = flashIdCounter++;
+            const flash = document.createElement('div');
+            flash.className = `flash-banner flash-${type}`;
+            
+            const iconMap = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            
+            flash.innerHTML = `
+                <i class="fas ${iconMap[type] || iconMap.success} flash-icon"></i>
+                <span class="flash-text">${message}</span>
+                <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Dismiss">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(flash);
+            
+            // Auto-dismiss after 3.6 seconds
+            setTimeout(() => {
+                if (flash.parentElement) {
+                    flash.remove();
+                }
+            }, 3600);
+        };
+    })();
+
+    // Data storage
+    let clubsData = [];
+    let filteredClubs = [];
     let currentFilter = 'all';
     let currentSort = { field: null, direction: 'asc' };
+
+    // Load JSON data
+    async function loadData() {
+        try {
+            const response = await fetch('../../database/json/clubs/clubs.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            clubsData = data.clubs || [];
+            filteredClubs = [...clubsData];
+            
+            init();
+        } catch (error) {
+            console.error('Error loading clubs data:', error);
+            // Fallback to empty array
+            clubsData = [];
+            filteredClubs = [];
+            init();
+        }
+    }
 
     // Initialize
     function init() {
@@ -137,17 +81,20 @@
         setupSearch();
         setupFilters();
         setupSorting();
-        setupAddButtons();
         setupClubNameLinks();
         setupModalClose();
+        // setupAddButtons is called after table render, not here to avoid duplicates
     }
 
     // Render table
     function renderTable() {
         const tbody = document.getElementById('clubs-table-body');
-        if (!tbody) return;
+        if (!tbody) {
+            console.error('Table body not found');
+            return;
+        }
 
-        if (filteredClubs.length === 0) {
+        if (!filteredClubs || filteredClubs.length === 0) {
             tbody.innerHTML = `
                 <tr>
                     <td colspan="7" class="clubs-empty-state">
@@ -167,9 +114,9 @@
                 <td class="col-name">
                     <a href="#" class="club-name-link" data-club-id="${club.id}">${escapeHtml(club.name)}</a>
                 </td>
-                <td class="col-liaison">${escapeHtml(club.owner)}</td>
-                <td class="col-timeslot">${escapeHtml(club.meetingTime)}</td>
-                <td class="col-location">${escapeHtml(club.location)}</td>
+                <td class="col-liaison">${escapeHtml(Array.isArray(club.owner) ? club.owner.join(', ') : (club.owner || '—'))}</td>
+                <td class="col-timeslot">${escapeHtml(club.meetingTime || '—')}</td>
+                <td class="col-location">${escapeHtml(club.location || '—')}</td>
                 <td class="col-join-type">
                     ${renderJoinTypeBadge(club)}
                 </td>
@@ -185,6 +132,7 @@
             </tr>
         `).join('');
 
+        // Setup buttons and links after table render (only once)
         setupAddButtons();
         setupClubNameLinks();
     }
@@ -350,31 +298,32 @@
     // Setup action buttons (Add/Apply)
     function setupAddButtons() {
         document.querySelectorAll('.club-action-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            // Remove existing listeners to prevent duplicates
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            
+            newBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const clubId = this.getAttribute('data-club-id');
                 const club = clubsData.find(c => c.id === clubId);
                 if (!club) return;
 
                 const buttonText = this.textContent.trim();
-                let action = 'add';
                 let actionPast = 'added';
-                let confirmText = `Add ${club.name} to your clubs?`;
+                let successMessage = `You have added ${club.name} to your clubs!`;
                 
                 if (buttonText === 'Apply') {
-                    action = 'apply to';
                     actionPast = 'applied to';
-                    confirmText = `Apply to ${club.name}?`;
+                    successMessage = `You have applied to ${club.name}!`;
                 } else if (buttonText === 'Audition') {
-                    action = 'audition for';
                     actionPast = 'signed up to audition for';
-                    confirmText = `Sign up to audition for ${club.name}?`;
+                    successMessage = `You have signed up to audition for ${club.name}!`;
                 }
                 
-                if (confirm(confirmText)) {
-                    // Here you would typically make an API call
-                    alert(`You have ${actionPast} ${club.name}!`);
-                }
+                // Show success flash instead of confirm/alert
+                showFlash(successMessage, 'success');
+                
+                // Here you would typically make an API call
             });
         });
     }
@@ -584,9 +533,9 @@
 
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', loadData);
     } else {
-        init();
+        loadData();
     }
 })();
 

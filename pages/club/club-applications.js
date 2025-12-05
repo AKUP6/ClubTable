@@ -2,6 +2,52 @@
 (function() {
     'use strict';
 
+    // Flash helper function
+    (function() {
+        let flashIdCounter = 0;
+        let flashContainer = null;
+
+        function initFlashContainer() {
+            if (!flashContainer) {
+                flashContainer = document.createElement('div');
+                flashContainer.className = 'flash-banner-container';
+                document.body.appendChild(flashContainer);
+            }
+            return flashContainer;
+        }
+
+        window.showFlash = function(message, type = 'success') {
+            const container = initFlashContainer();
+            const id = flashIdCounter++;
+            const flash = document.createElement('div');
+            flash.className = `flash-banner flash-${type}`;
+            
+            const iconMap = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle',
+                info: 'fa-info-circle'
+            };
+            
+            flash.innerHTML = `
+                <i class="fas ${iconMap[type] || iconMap.success} flash-icon"></i>
+                <span class="flash-text">${message}</span>
+                <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Dismiss">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(flash);
+            
+            // Auto-dismiss after 3.6 seconds
+            setTimeout(() => {
+                if (flash.parentElement) {
+                    flash.remove();
+                }
+            }, 3600);
+        };
+    })();
+
     // Default owner ID
     const DEFAULT_OWNER_ID = 1;
 
@@ -142,18 +188,6 @@
         return statusMap[status] || 'pending';
     }
 
-    // Get status icon
-    function getStatusIcon(status) {
-        const iconMap = {
-            'pending': 'fa-clock',
-            'accepted': 'fa-check',
-            'rejected': 'fa-times',
-            'active': 'fa-check-circle',
-            'inactive': 'fa-pause'
-        };
-        return iconMap[status] || 'fa-clock';
-    }
-
     // Render applications
     function renderApplications(applications) {
         const activityList = document.querySelector('.activity-list');
@@ -178,7 +212,6 @@
             if (!user) return ''; // Skip if user not found
             
             const statusClass = getStatusBadgeClass(app.status);
-            const statusIcon = getStatusIcon(app.status);
             const appDate = formatDate(app.application_date);
             const reviewDate = formatDate(app.review_date);
             
@@ -187,12 +220,10 @@
 
             return `
                 <div class="activity-item" data-app-index="${index}" data-user-id="${app.user_id}" data-club-id="${app.club_id}">
-                    <i class="fas ${statusIcon} activity-icon"></i>
                     <div class="activity-content">
                         <div class="activity-title">${user.first_name} ${user.last_name}</div>
                         <div class="activity-date">${user.email} | ${user.major} ${user.year}</div>
                         ${appDate ? `<div class="activity-date" style="margin-top: 4px;">Applied: ${appDate}${reviewDate ? ' | Reviewed: ' + reviewDate : ''}</div>` : ''}
-                        ${app.application_text ? `<div style="margin-top: 8px; font-size: 0.9em; color: #666; padding: 8px; background: #f5f5f5; border-radius: 4px;">${app.application_text}</div>` : ''}
                         ${app.notes ? `<div style="margin-top: 4px; font-size: 0.85em; color: #888; font-style: italic;">Note: ${app.notes}</div>` : ''}
                     </div>
                     <span class="activity-status ${statusClass}">${statusDisplay}</span>
@@ -378,10 +409,10 @@
             filterApplications(currentStatusFilter);
             closeStatusModal();
             
-            alert('Status updated successfully! (Note: Changes are in memory only. In production, this would save to the database.)');
+            showFlash('Status updated successfully! (Note: Changes are in memory only. In production, this would save to the database.)', 'success');
         } catch (error) {
             console.error('Error updating status:', error);
-            alert('Error updating status. Please try again.');
+            showFlash('Error updating status. Please try again.', 'error');
         }
     }
 

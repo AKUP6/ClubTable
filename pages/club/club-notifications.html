@@ -124,10 +124,70 @@
             }
         }
 
+        // Flash helper function
+        (function() {
+            let flashIdCounter = 0;
+            let flashContainer = null;
+
+            function initFlashContainer() {
+                if (!flashContainer) {
+                    flashContainer = document.createElement('div');
+                    flashContainer.className = 'flash-banner-container';
+                    document.body.appendChild(flashContainer);
+                }
+                return flashContainer;
+            }
+
+            window.showFlash = function(message, type = 'success') {
+                const container = initFlashContainer();
+                const id = flashIdCounter++;
+                const flash = document.createElement('div');
+                flash.className = `flash-banner flash-${type}`;
+                
+                const iconMap = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+                
+                flash.innerHTML = `
+                    <i class="fas ${iconMap[type] || iconMap.success} flash-icon"></i>
+                    <span class="flash-text">${message}</span>
+                    <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Dismiss">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                container.appendChild(flash);
+                
+                // Auto-dismiss after 3.6 seconds
+                setTimeout(() => {
+                    if (flash.parentElement) {
+                        flash.remove();
+                    }
+                }, 3600);
+            };
+        })();
+
         // Form submission
         document.querySelector('.notification-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Notification sent!');
+            
+            // Get form values
+            const messageTextarea = document.getElementById('message');
+            const message = messageTextarea ? messageTextarea.value.trim() : '';
+            
+            // Validate that message has text
+            if (!message || message.length === 0) {
+                showFlash('Please enter a message before sending the notification.', 'error');
+                if (messageTextarea) {
+                    messageTextarea.focus();
+                }
+                return;
+            }
+            
+            showFlash('Notification sent successfully!', 'success');
         });
     </script>
 </body>

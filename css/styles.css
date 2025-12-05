@@ -1458,6 +1458,15 @@ body {
     justify-content: center;
     color: #3182ce;
     flex-shrink: 0;
+    line-height: 1;
+    text-align: center;
+}
+
+.event-icon::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
 .event-details {
@@ -2294,6 +2303,7 @@ body {
     align-items: center;
     gap: 16px;
     padding: 20px 0;
+    padding-left: 0;
     border-bottom: 1px solid #e2e8f0;
 }
 
@@ -2307,15 +2317,28 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
     background: #edf2f7;
     border-radius: 8px;
     color: #3182ce;
     font-size: 18px;
     flex-shrink: 0;
+    line-height: 40px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.activity-icon::before {
+    line-height: 1;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .activity-content {
     flex: 1;
+    text-align: left;
 }
 
 .activity-title {
@@ -2340,13 +2363,18 @@ body {
 }
 
 .activity-status.pending {
-    background: #fed7d7;
-    color: #c53030;
+    background: #e2e8f0;
+    color: #4a5568;
 }
 
 .activity-status.accepted {
     background: #c6f6d5;
     color: #22543d;
+}
+
+.activity-status.rejected {
+    background: #fed7d7;
+    color: #c53030;
 }
 
 /* Responsive Owner Panel */
@@ -2443,6 +2471,19 @@ body {
 .form-textarea {
     resize: vertical;
     min-height: 120px;
+}
+
+.view-field {
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #2d3748;
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    min-height: 44px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* Upload Area */
@@ -2660,8 +2701,94 @@ body {
     transition: background-color 0.2s;
 }
 
+.btn-add-meeting i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.btn-add-meeting i::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
 .btn-add-meeting:hover {
     background: #2c5282;
+}
+
+.btn-add-event {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: #3182ce;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-add-event:hover {
+    background: #2c5282;
+}
+
+.btn-add-event i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.btn-add-event i::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.event-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.event-edit,
+.event-remove {
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.event-edit {
+    color: #3182ce;
+}
+
+.event-edit:hover {
+    color: #2c5282;
+    background: #ebf8ff;
+}
+
+.event-remove {
+    color: #e53e3e;
+}
+
+.event-remove:hover {
+    color: #c53030;
+    background: #fed7d7;
 }
 
 .meeting-schedule-list {
@@ -2674,17 +2801,23 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 20px 0;
-    border-bottom: 1px solid #e2e8f0;
+    padding: 20px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .meeting-schedule-item:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .schedule-icon {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2693,6 +2826,20 @@ body {
     color: #3182ce;
     font-size: 18px;
     flex-shrink: 0;
+    line-height: 1;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.schedule-icon::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    width: 100%;
+    height: 100%;
 }
 
 .schedule-content {
@@ -2724,28 +2871,35 @@ body {
     align-items: center;
 }
 
-.schedule-edit {
+.schedule-edit,
+.schedule-remove {
     font-size: 14px;
-    color: #3182ce;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s;
+    transition: all 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.schedule-edit {
+    color: #3182ce;
 }
 
 .schedule-edit:hover {
     color: #2c5282;
+    background: #ebf8ff;
 }
 
 .schedule-remove {
-    font-size: 14px;
     color: #e53e3e;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
 }
 
 .schedule-remove:hover {
     color: #c53030;
+    background: #fed7d7;
 }
 
 /* Upcoming Events Section */
@@ -2759,19 +2913,23 @@ body {
 .events-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 12px;
 }
 
 .event-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #e2e8f0;
+    padding: 20px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .event-item:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .event-content {
@@ -2802,6 +2960,19 @@ body {
 .event-detail i {
     color: #3182ce;
     width: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.event-detail i::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
 .event-rsvps {
@@ -2937,6 +3108,46 @@ body {
 .settings-tag.active {
     background: #3182ce;
     color: white;
+}
+
+.settings-tag.editable-tag {
+    position: relative;
+    padding-right: 32px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.tag-remove-btn {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    transition: background-color 0.2s;
+    opacity: 0.7;
+}
+
+.tag-remove-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+.settings-tag.active .tag-remove-btn {
+    color: white;
+}
+
+.settings-tag.active .tag-remove-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Toggle Setting */
@@ -4381,6 +4592,128 @@ body {
     
     .club-modal-cover {
         height: 150px;
+    }
+}
+
+/* Flash Banner Styles */
+.flash-banner-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    pointer-events: none;
+}
+
+.flash-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
+    animation: flashSlideIn 0.3s ease-out;
+    border-left: 4px solid;
+}
+
+@keyframes flashSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.flash-banner.flash-success {
+    border-left-color: #10b981;
+}
+
+.flash-banner.flash-success .flash-icon {
+    color: #10b981;
+}
+
+.flash-banner.flash-error {
+    border-left-color: #ef4444;
+}
+
+.flash-banner.flash-error .flash-icon {
+    color: #ef4444;
+}
+
+.flash-banner.flash-info {
+    border-left-color: #3b82f6;
+}
+
+.flash-banner.flash-info .flash-icon {
+    color: #3b82f6;
+}
+
+.flash-banner.flash-warning {
+    border-left-color: #f59e0b;
+}
+
+.flash-banner.flash-warning .flash-icon {
+    color: #f59e0b;
+}
+
+.flash-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.flash-text {
+    flex: 1;
+    font-size: 14px;
+    color: #1f2937;
+    line-height: 1.4;
+}
+
+.flash-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.flash-close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.flash-close i {
+    font-size: 14px;
+}
+
+/* Responsive Flash Banners */
+@media (max-width: 768px) {
+    .flash-banner-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .flash-banner {
+        padding: 12px 16px;
+    }
+    
+    .flash-text {
+        font-size: 13px;
     }
 }
 

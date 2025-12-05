@@ -1,0 +1,55 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Academic",
+      "description": "Academic and scholarly organizations"
+    },
+    {
+      "id": 2,
+      "name": "Arts",
+      "description": "Arts, music, theater, and creative organizations"
+    },
+    {
+      "id": 3,
+      "name": "Technology",
+      "description": "Technology, engineering, and computer science clubs"
+    },
+    {
+      "id": 4,
+      "name": "Service",
+      "description": "Community service and social impact organizations"
+    },
+    {
+      "id": 5,
+      "name": "Media",
+      "description": "Journalism, broadcasting, and media organizations"
+    },
+    {
+      "id": 6,
+      "name": "Political",
+      "description": "Political and debate organizations"
+    },
+    {
+      "id": 7,
+      "name": "Environmental",
+      "description": "Environmental and sustainability organizations"
+    },
+    {
+      "id": 8,
+      "name": "Business",
+      "description": "Business, entrepreneurship, and finance organizations"
+    },
+    {
+      "id": 9,
+      "name": "Recreation",
+      "description": "Recreational and outdoor activities"
+    },
+    {
+      "id": 10,
+      "name": "Social",
+      "description": "Social and cultural organizations"
+    }
+  ]
+}
+

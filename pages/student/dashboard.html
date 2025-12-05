@@ -28,7 +28,7 @@
                     </div>
                     <div class="summary-content-dashboard">
                         <div class="summary-label-dashboard">Active Clubs</div>
-                        <div class="summary-value-dashboard">3</div>
+                        <div class="summary-value-dashboard">0</div>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                     </div>
                     <div class="summary-content-dashboard">
                         <div class="summary-label-dashboard">Upcoming Events</div>
-                        <div class="summary-value-dashboard">5</div>
+                        <div class="summary-value-dashboard">0</div>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                     </div>
                     <div class="summary-content-dashboard">
                         <div class="summary-label-dashboard">Pending Applications</div>
-                        <div class="summary-value-dashboard">2</div>
+                        <div class="summary-value-dashboard">0</div>
                     </div>
                 </div>
             </div>
@@ -64,55 +64,7 @@
                         </div>
 
                         <div class="clubs-list-dashboard">
-                            <!-- Club 1: Yale Debate Association -->
-                            <div class="club-card-dashboard">
-                                <div class="club-image-placeholder">
-                                    <i class="fas fa-laptop"></i>
-                                </div>
-                                <div class="club-details-dashboard">
-                                    <div class="club-header-dashboard">
-                                        <h3 class="club-name-dashboard">Yale Debate Association</h3>
-                                    </div>
-                                    <p class="club-meta">Member · Joined Aug 2025</p>
-                                    <div class="club-next-event">
-                                        <i class="fas fa-calendar"></i>
-                                        <span>Next Event: Practice Tournament - 11/29/2025 at 2:00 PM</span>
-                                    </div>
-                                    <button class="btn-view-details">View Details</button>
-                                </div>
-                            </div>
-
-                            <!-- Club 2: Yale Daily News -->
-                            <div class="club-card-dashboard">
-                                <div class="club-image-placeholder">
-                                    <i class="fas fa-newspaper"></i>
-                                </div>
-                                <div class="club-details-dashboard">
-                                    <div class="club-header-dashboard">
-                                        <h3 class="club-name-dashboard">Yale Daily News</h3>
-                                    </div>
-                                    <p class="club-meta">Member · Joined Sep 2025</p>
-                                    <button class="btn-view-details">View Details</button>
-                                </div>
-                            </div>
-
-                            <!-- Club 3: Code4Good -->
-                            <div class="club-card-dashboard">
-                                <div class="club-image-placeholder">
-                                    <i class="fas fa-code"></i>
-                                </div>
-                                <div class="club-details-dashboard">
-                                    <div class="club-header-dashboard">
-                                        <h3 class="club-name-dashboard">Code4Good</h3>
-                                        <span class="leader-badge">Leader</span>
-                                    </div>
-                                    <p class="club-meta">Leadership · Joined Aug 2024</p>
-                                    <div class="club-actions-dashboard">
-                                        <button class="btn-view-details">View Details</button>
-                                        <button class="btn-manage-club">Manage Club</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Clubs will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -127,9 +79,7 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="event-details">
-                                <div class="event-name">Practice Tournament</div>
-                                <div class="event-club">Yale Debate Association</div>
-                                <div class="event-time">11/29/2025 at 2:00 PM</div>
+                                <div class="event-name" style="color: #718096; font-style: italic;">No upcoming events</div>
                             </div>
                         </div>
                     </div>
@@ -148,7 +98,7 @@
                             </a>
                             <a href="calendar.html" class="quick-action-item">
                                 <i class="fas fa-calendar"></i>
-                                <span>Update Availability</span>
+                                <span>View Calendar</span>
                             </a>
                         </div>
                     </div>
@@ -157,20 +107,7 @@
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">Application Deadlines</h3>
                         <div class="deadline-list">
-                            <div class="deadline-item">
-                                <div class="deadline-info">
-                                    <div class="deadline-club">Yale Taekwondo</div>
-                                    <div class="deadline-time">6 days left</div>
-                                </div>
-                                <span class="deadline-tag urgent">Urgent</span>
-                            </div>
-                            <div class="deadline-item">
-                                <div class="deadline-info">
-                                    <div class="deadline-club">Yale Daily News</div>
-                                    <div class="deadline-time">7 days left</div>
-                                </div>
-                                <span class="deadline-tag soon">Soon</span>
-                            </div>
+                            <!-- Deadlines will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -178,7 +115,24 @@
         </div>
     </main>
 
+    <!-- Club Details Modal -->
+    <div id="club-modal" class="club-modal">
+        <div class="club-modal-overlay"></div>
+        <div class="club-modal-content">
+            <div class="club-modal-header">
+                <h2 class="club-modal-title" id="club-modal-title">Club Name</h2>
+                <button class="club-modal-close" id="club-modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="club-modal-body" id="club-modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <script src="navbar.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
 

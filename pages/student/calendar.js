@@ -2,16 +2,25 @@
 (function() {
     'use strict';
 
-    // Event data structure
-    const MeetingEvent = {
-        id: '',
-        clubName: '',
-        start: null,
-        end: null,
-        location: '',
-        description: '',
-        color: ''
-    };
+    // Default user ID for beta testing
+    const DEFAULT_USER_ID = 1;
+
+    // Data storage
+    let usersData = null;
+    let clubsData = null;
+    let events = [];
+
+    // Color palette for clubs
+    const clubColors = [
+        '#4285f4', // Blue
+        '#34a853', // Green
+        '#ea4335', // Red
+        '#fbbc04', // Yellow
+        '#9c27b0', // Purple
+        '#ff9800', // Orange
+        '#00bcd4', // Cyan
+        '#e91e63'  // Pink
+    ];
 
     // Get week start (Monday) - helper function
     function getWeekStart(date) {
@@ -23,62 +32,110 @@
         return weekStart;
     }
 
-    // Sample events data - using relative dates
-    function getSampleEvents() {
-        const today = new Date();
-        const weekStart = getWeekStart(today);
-        
-        return [
-            {
-                id: '1',
-                clubName: 'Yale Debate Association',
-                start: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 1, 14, 0), // Tuesday, 2 PM
-                end: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 1, 16, 0),   // Tuesday, 4 PM
-                location: 'Linsly-Chittenden Hall, Room 101',
-                description: 'Weekly debate practice session. All members welcome.',
-                color: '#4285f4'
-            },
-            {
-                id: '2',
-                clubName: 'Code4Good',
-                start: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 2, 15, 0), // Wednesday, 3 PM
-                end: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 2, 17, 0),   // Wednesday, 5 PM
-                location: 'Computer Science Building, Room 203',
-                description: 'Project planning meeting for the new website redesign.',
-                color: '#34a853'
-            },
-            {
-                id: '3',
-                clubName: 'Yale Daily News',
-                start: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 3, 10, 0), // Thursday, 10 AM
-                end: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 3, 11, 30), // Thursday, 11:30 AM
-                location: '202 York Street',
-                description: 'Editorial meeting to discuss upcoming articles.',
-                color: '#ea4335'
-            },
-            {
-                id: '4',
-                clubName: 'Yale Debate Association',
-                start: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 4, 13, 0), // Friday, 1 PM
-                end: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 4, 14, 30), // Friday, 2:30 PM
-                location: 'Linsly-Chittenden Hall, Room 101',
-                description: 'Team strategy session before the tournament.',
-                color: '#4285f4'
-            },
-            {
-                id: '5',
-                clubName: 'Code4Good',
-                start: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 5, 16, 0), // Saturday, 4 PM
-                end: new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 5, 18, 0),   // Saturday, 6 PM
-                location: 'Computer Science Building, Room 203',
-                description: 'Code review and pair programming session.',
-                color: '#34a853'
-            }
-        ];
-    }
-    
-    let events = getSampleEvents();
+    // Load JSON data
+    async function loadData() {
+        try {
+            const [usersResponse, clubsResponse] = await Promise.all([
+                fetch('../../database/json/users/club_users.json'),
+                fetch('../../database/json/clubs/clubs.json')
+            ]);
 
+            usersData = await usersResponse.json();
+            clubsData = await clubsResponse.json();
+
+            // Initialize calendar after data is loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', detectPageAndInit);
+            } else {
+                detectPageAndInit();
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
+            // Fallback to empty events
+            events = [];
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', detectPageAndInit);
+            } else {
+                detectPageAndInit();
+            }
+        }
+    }
+
+    // Get user by ID
+    function getUserById(userId) {
+        return usersData.users.find(u => u.id === userId);
+    }
+
+    // Get clubs for user
+    function getUserClubs(userId) {
+        const user = getUserById(userId);
+        if (!user || !user.clubs) {
+            return [];
+        }
+
+        const clubIds = Object.keys(user.clubs);
+        return clubIds.map(clubId => {
+            const club = clubsData.clubs.find(c => c.id === clubId);
+            return club;
+        }).filter(club => club !== undefined);
+    }
+
+    // Parse day name to day of week (0=Sunday, 1=Monday, etc.)
+    function parseDayName(dayName) {
+        const dayMap = {
+            'Sunday': 0,
+            'Monday': 1,
+            'Tuesday': 2,
+            'Wednesday': 3,
+            'Thursday': 4,
+            'Friday': 5,
+            'Saturday': 6
+        };
+        return dayMap[dayName] !== undefined ? dayMap[dayName] : null;
+    }
+
+    // Parse time string like "2:00 PM - 4:00 PM" to hours and minutes
+    function parseTimeRange(timeString) {
+        // Match patterns like "2:00 PM - 4:00 PM" or "14:00 - 16:00"
+        const timePattern = /(\d{1,2}):(\d{2})\s*(AM|PM)?\s*-\s*(\d{1,2}):(\d{2})\s*(AM|PM)?/i;
+        const match = timeString.match(timePattern);
+        
+        if (!match) return null;
+
+        let startHour = parseInt(match[1]);
+        const startMinute = parseInt(match[2]);
+        const startPeriod = match[3] ? match[3].toUpperCase() : null;
+        let endHour = parseInt(match[4]);
+        const endMinute = parseInt(match[5]);
+        const endPeriod = match[6] ? match[6].toUpperCase() : null;
+
+        // Convert to 24-hour format if AM/PM is specified
+        if (startPeriod) {
+            if (startPeriod === 'PM' && startHour !== 12) {
+                startHour += 12;
+            } else if (startPeriod === 'AM' && startHour === 12) {
+                startHour = 0;
+            }
+        }
+
+        if (endPeriod) {
+            if (endPeriod === 'PM' && endHour !== 12) {
+                endHour += 12;
+            } else if (endPeriod === 'AM' && endHour === 12) {
+                endHour = 0;
+            }
+        }
+
+        return {
+            startHour,
+            startMinute,
+            endHour,
+            endMinute
+        };
+    }
+
+
+    // Calendar state
     let currentDate = new Date();
     let currentView = 'week'; // 'week' or 'month'
 
@@ -96,7 +153,8 @@
             btn.addEventListener('click', function() {
                 viewButtons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                currentView = this.textContent.trim();
+                // Normalize view name to lowercase
+                currentView = this.textContent.trim().toLowerCase();
                 renderCalendar();
             });
         });
@@ -140,8 +198,10 @@
 
     // Main render function
     function renderCalendar() {
-        // Update events to match current week
-        events = getSampleEvents();
+        // Regenerate events for the current view period
+        if (usersData && clubsData) {
+            generateEventsForPeriod();
+        }
         
         if (currentView === 'week') {
             renderWeekView();
@@ -149,6 +209,80 @@
             renderMonthView();
         }
         updateDateDisplay();
+    }
+
+    // Generate events for the current period (week or month view)
+    function generateEventsForPeriod() {
+        events = [];
+        const userClubs = getUserClubs(DEFAULT_USER_ID);
+
+        userClubs.forEach((club, clubIndex) => {
+            const clubColor = clubColors[clubIndex % clubColors.length];
+            
+            if (!club.meeting_schedule || club.meeting_schedule.length === 0) {
+                return;
+            }
+
+            club.meeting_schedule.forEach((schedule, scheduleIndex) => {
+                if (!schedule.is_recurring) {
+                    return;
+                }
+
+                const dayOfWeek = parseDayName(schedule.day);
+                if (dayOfWeek === null) {
+                    return;
+                }
+
+                const timeRange = parseTimeRange(schedule.time);
+                if (!timeRange) {
+                    return;
+                }
+
+                // Generate events for a range around the current view
+                // For infinite recurrence, generate events for a large range
+                let startDate, endDate;
+                if (currentView === 'week') {
+                    const weekStart = getWeekStart(currentDate);
+                    startDate = new Date(weekStart);
+                    startDate.setDate(startDate.getDate() - 14); // Show 2 weeks before
+                    endDate = new Date(weekStart);
+                    endDate.setDate(endDate.getDate() + 364); // Show 52 weeks (1 year) ahead
+                } else {
+                    // Month view - show 6 months
+                    startDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+                    endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 6, 0);
+                }
+
+                // Generate events for this range
+                const weekStart = getWeekStart(startDate);
+                const weeksToGenerate = Math.ceil((endDate - startDate) / (7 * 24 * 60 * 60 * 1000)) + 1;
+
+                for (let weekOffset = 0; weekOffset < weeksToGenerate; weekOffset++) {
+                    const eventDate = new Date(weekStart);
+                    const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+                    eventDate.setDate(eventDate.getDate() + (weekOffset * 7) + daysFromMonday);
+
+                    // Only add if within our date range
+                    if (eventDate >= startDate && eventDate <= endDate) {
+                        const start = new Date(eventDate);
+                        start.setHours(timeRange.startHour, timeRange.startMinute, 0, 0);
+
+                        const end = new Date(eventDate);
+                        end.setHours(timeRange.endHour, timeRange.endMinute, 0, 0);
+
+                        events.push({
+                            id: `club-${club.id}-schedule-${scheduleIndex}-week-${weekOffset}`,
+                            clubName: club.name,
+                            start: start,
+                            end: end,
+                            location: schedule.location || club.location || '',
+                            description: `Weekly ${club.name} meeting`,
+                            color: clubColor
+                        });
+                    }
+                }
+            });
+        });
     }
 
     // Render week view
@@ -591,10 +725,23 @@
         }
     }
 
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', detectPageAndInit);
+    // Initialize - load data first, then detect page and init
+    const isCalendarPage = document.querySelector('.calendar-page') !== null;
+    const hasEventCalendar = document.querySelector('.gcal-time-cell') !== null;
+    
+    if (isCalendarPage && hasEventCalendar) {
+        // For calendar page, load data first
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadData);
+        } else {
+            loadData();
+        }
     } else {
-        detectPageAndInit();
+        // For other pages (like profile), just detect and init
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', detectPageAndInit);
+        } else {
+            detectPageAndInit();
+        }
     }
 })();

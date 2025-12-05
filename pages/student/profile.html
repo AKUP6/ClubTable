@@ -30,28 +30,69 @@
                 </div>
                 <div class="profile-info-section">
                     <div class="profile-header-actions">
-                        <h2 class="profile-name">Alex Student</h2>
-                        <button class="btn-edit-profile">
+                        <h2 class="profile-name" id="profile-name-display">Alex Student</h2>
+                        <button class="btn-edit-profile" id="edit-profile-btn">
                             <i class="fas fa-pencil-alt"></i> Edit Profile
                         </button>
                     </div>
-                    <p class="profile-title">Junior · Computer Science</p>
-                    <div class="profile-details">
-                        <div class="profile-detail-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>alex.student@yale.edu</span>
+                    <div class="profile-view-mode">
+                        <p class="profile-title" id="profile-title-display">Junior · Computer Science</p>
+                        <div class="profile-details">
+                            <div class="profile-detail-item">
+                                <i class="fas fa-envelope"></i>
+                                <span id="email-display">alex.student@yale.edu</span>
+                            </div>
+                            <div class="profile-detail-item" id="phone-item">
+                                <i class="fas fa-phone"></i>
+                                <span id="phone-display">(203) 555-0123</span>
+                            </div>
+                            <div class="profile-detail-item" id="college-item">
+                                <i class="fas fa-building"></i>
+                                <span id="college-display">Davenport College</span>
+                            </div>
+                            <div class="profile-detail-item" id="class-year-item">
+                                <i class="fas fa-calendar"></i>
+                                <span id="class-year-display">Class of 2026</span>
+                            </div>
                         </div>
-                        <div class="profile-detail-item">
-                            <i class="fas fa-phone"></i>
-                            <span>(203) 555-0123</span>
+                    </div>
+                    <div class="profile-edit-mode" style="display: none;">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-first-name" style="display: block; margin-bottom: 8px; font-weight: 500;">First Name</label>
+                            <input type="text" id="edit-first-name" class="form-input" style="width: 100%;">
                         </div>
-                        <div class="profile-detail-item">
-                            <i class="fas fa-building"></i>
-                            <span>Davenport College</span>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-last-name" style="display: block; margin-bottom: 8px; font-weight: 500;">Last Name</label>
+                            <input type="text" id="edit-last-name" class="form-input" style="width: 100%;">
                         </div>
-                        <div class="profile-detail-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>Class of 2026</span>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-year" style="display: block; margin-bottom: 8px; font-weight: 500;">Year</label>
+                            <select id="edit-year" class="form-select" style="width: 100%;">
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-major" style="display: block; margin-bottom: 8px; font-weight: 500;">Major</label>
+                            <input type="text" id="edit-major" class="form-input" style="width: 100%;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-phone" style="display: block; margin-bottom: 8px; font-weight: 500;">Phone</label>
+                            <input type="text" id="edit-phone" class="form-input" style="width: 100%;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-college" style="display: block; margin-bottom: 8px; font-weight: 500;">College</label>
+                            <input type="text" id="edit-college" class="form-input" style="width: 100%;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="edit-class-year" style="display: block; margin-bottom: 8px; font-weight: 500;">Class Year</label>
+                            <input type="text" id="edit-class-year" class="form-input" style="width: 100%;" placeholder="e.g., 2026">
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 20px;">
+                            <button class="btn-primary" id="save-profile-btn" style="padding: 10px 20px;">Save</button>
+                            <button class="btn-secondary" id="cancel-profile-btn" style="padding: 10px 20px;">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -59,25 +100,20 @@
 
             <!-- About Me Section -->
             <div class="profile-section">
-                <h3 class="section-title">About Me</h3>
-                <p class="section-content">Passionate about technology, social impact, and bringing people together. I'm involved in several campus organizations and love exploring new ways to make a difference.</p>
-                <a href="#" class="section-link">Edit bio</a>
-            </div>
-
-            <!-- Interests & Skills Section -->
-            <div class="profile-section">
-                <h3 class="section-title">Interests & Skills</h3>
-                <div class="skills-tags">
-                    <span class="skill-tag">Software Development</span>
-                    <span class="skill-tag">Public Speaking</span>
-                    <span class="skill-tag">Community Service</span>
-                    <span class="skill-tag">Writing</span>
-                    <span class="skill-tag">Event Planning</span>
-                    <span class="skill-tag">Leadership</span>
-                    <span class="skill-tag">Design</span>
-                    <span class="skill-tag">Research</span>
+                <div class="section-header">
+                    <h3 class="section-title">About Me</h3>
                 </div>
-                <a href="#" class="section-link">Add more interests</a>
+                <div class="section-content-view">
+                    <p class="section-content" id="bio-content">Passionate about technology, social impact, and bringing people together. I'm involved in several campus organizations and love exploring new ways to make a difference.</p>
+                    <a href="#" class="section-link" id="edit-bio-link">Edit bio</a>
+                </div>
+                <div class="section-content-edit" style="display: none;">
+                    <textarea id="bio-edit" class="form-textarea" rows="4" style="width: 100%; margin-bottom: 12px;"></textarea>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn-primary" id="save-bio-btn" style="padding: 10px 20px;">Save</button>
+                        <button class="btn-secondary" id="cancel-bio-btn" style="padding: 10px 20px;">Cancel</button>
+                    </div>
+                </div>
             </div>
 
             <!-- My Clubs Section -->
@@ -129,16 +165,6 @@
                 </div>
                 <div class="preference-item">
                     <div class="preference-info">
-                        <div class="preference-name">Calendar Sharing</div>
-                        <div class="preference-description">Share availability with your clubs</div>
-                    </div>
-                    <label class="toggle-switch">
-                        <input type="checkbox" checked>
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
-                <div class="preference-item">
-                    <div class="preference-info">
                         <div class="preference-name">Profile Visibility</div>
                         <div class="preference-description">Make your profile visible to club leaders</div>
                     </div>
@@ -159,194 +185,11 @@
                 </div>
             </div>
 
-            <!-- Availability Section -->
-            <div class="profile-section">
-                <h3 class="section-title">Availability</h3>
-                <p class="section-content">Share your weekly schedule to help clubs plan meetings at convenient times. Your availability is only visible to clubs you're a member of or have applied to.</p>
-                
-                <div class="availability-section">
-                    <div class="availability-header">
-                        <div>
-                            <h4 class="availability-title">Mark Your Available Times</h4>
-                            <p class="availability-subtitle">Click on time slots to mark your availability.</p>
-                        </div>
-                        <div class="week-navigation">
-                            <button class="week-nav-btn" id="prev-week">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <span class="week-display" id="week-display">Week of Nov 24</span>
-                            <button class="week-nav-btn" id="next-week">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Calendar Grid -->
-                    <div class="calendar-grid-container">
-                        <div class="calendar-grid">
-                            <!-- Time slots column -->
-                            <div class="time-column">
-                                <div class="time-slot">8 AM</div>
-                                <div class="time-slot">9 AM</div>
-                                <div class="time-slot">10 AM</div>
-                                <div class="time-slot">11 AM</div>
-                                <div class="time-slot">12 PM</div>
-                                <div class="time-slot">1 PM</div>
-                                <div class="time-slot">2 PM</div>
-                                <div class="time-slot">3 PM</div>
-                                <div class="time-slot">4 PM</div>
-                                <div class="time-slot">5 PM</div>
-                                <div class="time-slot">6 PM</div>
-                                <div class="time-slot">7 PM</div>
-                                <div class="time-slot">8 PM</div>
-                                <div class="time-slot">9 PM</div>
-                            </div>
-
-                            <!-- Days grid -->
-                            <div class="days-grid">
-                                <!-- Day headers -->
-                                <div class="day-header">Monday</div>
-                                <div class="day-header">Tuesday</div>
-                                <div class="day-header">Wednesday</div>
-                                <div class="day-header">Thursday</div>
-                                <div class="day-header">Friday</div>
-                                <div class="day-header">Saturday</div>
-                                <div class="day-header">Sunday</div>
-
-                                <!-- Time slot cells (14 time slots × 7 days = 98 cells) -->
-                                <!-- Monday -->
-                                <div class="time-cell" data-day="monday" data-time="8"></div>
-                                <div class="time-cell" data-day="monday" data-time="9"></div>
-                                <div class="time-cell" data-day="monday" data-time="10"></div>
-                                <div class="time-cell" data-day="monday" data-time="11"></div>
-                                <div class="time-cell" data-day="monday" data-time="12"></div>
-                                <div class="time-cell" data-day="monday" data-time="13"></div>
-                                <div class="time-cell" data-day="monday" data-time="14"></div>
-                                <div class="time-cell" data-day="monday" data-time="15"></div>
-                                <div class="time-cell" data-day="monday" data-time="16"></div>
-                                <div class="time-cell" data-day="monday" data-time="17"></div>
-                                <div class="time-cell" data-day="monday" data-time="18"></div>
-                                <div class="time-cell" data-day="monday" data-time="19"></div>
-                                <div class="time-cell" data-day="monday" data-time="20"></div>
-                                <div class="time-cell" data-day="monday" data-time="21"></div>
-
-                                <!-- Tuesday -->
-                                <div class="time-cell" data-day="tuesday" data-time="8"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="9"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="10"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="11"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="12"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="13"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="14"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="15"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="16"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="17"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="18"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="19"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="20"></div>
-                                <div class="time-cell" data-day="tuesday" data-time="21"></div>
-
-                                <!-- Wednesday -->
-                                <div class="time-cell" data-day="wednesday" data-time="8"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="9"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="10"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="11"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="12"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="13"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="14"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="15"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="16"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="17"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="18"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="19"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="20"></div>
-                                <div class="time-cell" data-day="wednesday" data-time="21"></div>
-
-                                <!-- Thursday -->
-                                <div class="time-cell" data-day="thursday" data-time="8"></div>
-                                <div class="time-cell" data-day="thursday" data-time="9"></div>
-                                <div class="time-cell" data-day="thursday" data-time="10"></div>
-                                <div class="time-cell" data-day="thursday" data-time="11"></div>
-                                <div class="time-cell" data-day="thursday" data-time="12"></div>
-                                <div class="time-cell" data-day="thursday" data-time="13"></div>
-                                <div class="time-cell" data-day="thursday" data-time="14"></div>
-                                <div class="time-cell" data-day="thursday" data-time="15"></div>
-                                <div class="time-cell" data-day="thursday" data-time="16"></div>
-                                <div class="time-cell" data-day="thursday" data-time="17"></div>
-                                <div class="time-cell" data-day="thursday" data-time="18"></div>
-                                <div class="time-cell" data-day="thursday" data-time="19"></div>
-                                <div class="time-cell" data-day="thursday" data-time="20"></div>
-                                <div class="time-cell" data-day="thursday" data-time="21"></div>
-
-                                <!-- Friday -->
-                                <div class="time-cell" data-day="friday" data-time="8"></div>
-                                <div class="time-cell" data-day="friday" data-time="9"></div>
-                                <div class="time-cell" data-day="friday" data-time="10"></div>
-                                <div class="time-cell" data-day="friday" data-time="11"></div>
-                                <div class="time-cell" data-day="friday" data-time="12"></div>
-                                <div class="time-cell" data-day="friday" data-time="13"></div>
-                                <div class="time-cell" data-day="friday" data-time="14"></div>
-                                <div class="time-cell" data-day="friday" data-time="15"></div>
-                                <div class="time-cell" data-day="friday" data-time="16"></div>
-                                <div class="time-cell" data-day="friday" data-time="17"></div>
-                                <div class="time-cell" data-day="friday" data-time="18"></div>
-                                <div class="time-cell" data-day="friday" data-time="19"></div>
-                                <div class="time-cell" data-day="friday" data-time="20"></div>
-                                <div class="time-cell" data-day="friday" data-time="21"></div>
-
-                                <!-- Saturday -->
-                                <div class="time-cell" data-day="saturday" data-time="8"></div>
-                                <div class="time-cell" data-day="saturday" data-time="9"></div>
-                                <div class="time-cell" data-day="saturday" data-time="10"></div>
-                                <div class="time-cell" data-day="saturday" data-time="11"></div>
-                                <div class="time-cell" data-day="saturday" data-time="12"></div>
-                                <div class="time-cell" data-day="saturday" data-time="13"></div>
-                                <div class="time-cell" data-day="saturday" data-time="14"></div>
-                                <div class="time-cell" data-day="saturday" data-time="15"></div>
-                                <div class="time-cell" data-day="saturday" data-time="16"></div>
-                                <div class="time-cell" data-day="saturday" data-time="17"></div>
-                                <div class="time-cell" data-day="saturday" data-time="18"></div>
-                                <div class="time-cell" data-day="saturday" data-time="19"></div>
-                                <div class="time-cell" data-day="saturday" data-time="20"></div>
-                                <div class="time-cell" data-day="saturday" data-time="21"></div>
-
-                                <!-- Sunday -->
-                                <div class="time-cell" data-day="sunday" data-time="8"></div>
-                                <div class="time-cell" data-day="sunday" data-time="9"></div>
-                                <div class="time-cell" data-day="sunday" data-time="10"></div>
-                                <div class="time-cell" data-day="sunday" data-time="11"></div>
-                                <div class="time-cell" data-day="sunday" data-time="12"></div>
-                                <div class="time-cell" data-day="sunday" data-time="13"></div>
-                                <div class="time-cell" data-day="sunday" data-time="14"></div>
-                                <div class="time-cell" data-day="sunday" data-time="15"></div>
-                                <div class="time-cell" data-day="sunday" data-time="16"></div>
-                                <div class="time-cell" data-day="sunday" data-time="17"></div>
-                                <div class="time-cell" data-day="sunday" data-time="18"></div>
-                                <div class="time-cell" data-day="sunday" data-time="19"></div>
-                                <div class="time-cell" data-day="sunday" data-time="20"></div>
-                                <div class="time-cell" data-day="sunday" data-time="21"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Legend -->
-                    <div class="calendar-legend">
-                        <div class="legend-item">
-                            <div class="legend-box available"></div>
-                            <span>Available</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-box unavailable"></div>
-                            <span>Unavailable</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
     <script src="navbar.js"></script>
-    <script src="calendar.js"></script>
+    <script src="profile.js"></script>
 </body>
 </html>
 
