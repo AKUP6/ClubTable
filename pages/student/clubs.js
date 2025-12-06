@@ -311,19 +311,76 @@
                 const buttonText = this.textContent.trim();
                 let actionPast = 'added';
                 let successMessage = `You have added ${club.name} to your clubs!`;
+                let statusCode = 1; // 1 = Member (for open join)
                 
                 if (buttonText === 'Apply') {
                     actionPast = 'applied to';
-                    successMessage = `You have applied to ${club.name}!`;
+                    successMessage = `Your application to ${club.name} has been submitted!`;
+                    statusCode = 3; // 3 = Pending application
                 } else if (buttonText === 'Audition') {
                     actionPast = 'signed up to audition for';
-                    successMessage = `You have signed up to audition for ${club.name}!`;
+                    successMessage = `Your audition request for ${club.name} has been submitted!`;
+                    statusCode = 3; // 3 = Pending audition
+                } else {
+                    // Open join - immediately added
+                    statusCode = 1; // 1 = Member
                 }
                 
-                // Show success flash instead of confirm/alert
-                showFlash(successMessage, 'success');
-                
-                // Here you would typically make an API call
+                // Get current user from localStorage
+                const storedUser = localStorage.getItem('clubtableCurrentUser');
+                if (storedUser) {
+                    try {
+                        const currentUser = JSON.parse(storedUser);
+                        
+                        // Initialize clubs object if it doesn't exist
+                        if (!currentUser.clubs) {
+                            currentUser.clubs = {};
+                        }
+                        
+                        // Check if already applied/joined
+                        if (currentUser.clubs[clubId]) {
+                            showFlash('You have already joined or applied to this club!', 'info');
+                            return;
+                        }
+                        
+                        // Add club with status code
+                        currentUser.clubs[clubId] = statusCode;
+                        currentUser.updated_at = new Date().toISOString();
+                        
+                        // Save back to localStorage
+                        localStorage.setItem('clubtableCurrentUser', JSON.stringify(currentUser));
+                        
+                        // Also update in users array
+                        const usersArray = localStorage.getItem('clubtableUsers');
+                        if (usersArray) {
+                            try {
+                                const users = JSON.parse(usersArray);
+                                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                                if (userIndex !== -1) {
+                                    users[userIndex] = currentUser;
+                                    localStorage.setItem('clubtableUsers', JSON.stringify(users));
+                                }
+                            } catch (e) {
+                                console.error('Error updating users array:', e);
+                            }
+                        }
+                        
+                        // Show success message
+                        showFlash(successMessage, 'success');
+                        
+                        // Update button state
+                        this.textContent = statusCode === 3 ? 'Pending' : 'Joined';
+                        this.disabled = true;
+                        this.style.opacity = '0.6';
+                        this.style.cursor = 'not-allowed';
+                        
+                    } catch (e) {
+                        console.error('Error adding club:', e);
+                        showFlash('Error adding club. Please try again.', 'error');
+                    }
+                } else {
+                    showFlash('Please log in to join clubs', 'error');
+                }
             });
         });
     }

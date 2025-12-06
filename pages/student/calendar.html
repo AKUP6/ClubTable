@@ -6,6 +6,110 @@
     <title>My Calendar - Yale Clubs</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .in-progress-overlay {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .in-progress-content {
+            max-width: 600px;
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .in-progress-icon {
+            font-size: 64px;
+            color: #667eea;
+            margin-bottom: 24px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        .in-progress-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 16px;
+        }
+        
+        .in-progress-message {
+            font-size: 16px;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        
+        .in-progress-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        
+        .in-progress-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+        
+        .in-progress-feature i {
+            color: #48bb78;
+            font-size: 20px;
+        }
+        
+        .in-progress-feature span {
+            color: #2d3748;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .in-progress-note {
+            font-size: 14px;
+            color: #718096;
+            padding: 16px;
+            background: #edf2f7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .in-progress-note i {
+            color: #4299e1;
+        }
+        
+        .in-progress-note a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .in-progress-note a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body class="dashboard-body">
     <!-- Navigation Bar will be inserted by JavaScript -->
@@ -14,8 +118,40 @@
     <!-- Main Content -->
     <main class="dashboard-content">
         <div class="calendar-page">
+            <!-- In Progress Overlay -->
+            <div class="in-progress-overlay">
+                <div class="in-progress-content">
+                    <div class="in-progress-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h2 class="in-progress-title">Calendar Feature In Progress</h2>
+                    <p class="in-progress-message">
+                        We're working hard to bring you the full calendar experience! 
+                        This feature is currently under development and will be available soon.
+                    </p>
+                    <div class="in-progress-features">
+                        <div class="in-progress-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>View all your club meetings</span>
+                        </div>
+                        <div class="in-progress-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Get event reminders</span>
+                        </div>
+                        <div class="in-progress-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Sync with Google Calendar</span>
+                        </div>
+                    </div>
+                    <p class="in-progress-note">
+                        <i class="fas fa-info-circle"></i>
+                        In the meantime, check the <a href="clubs.html">Clubs page</a> to see meeting times.
+                    </p>
+                </div>
+            </div>
+            
             <!-- Google Calendar Style Header -->
-            <div class="gcal-header">
+            <div class="gcal-header" style="opacity: 0.3; pointer-events: none;">
                 <div class="gcal-header-left">
                     <h1 class="gcal-title">Calendar</h1>
                     <div class="gcal-date-range" id="week-display">Week of Nov 24</div>
@@ -38,7 +174,7 @@
             </div>
 
             <!-- Calendar Events Section -->
-            <div class="gcal-availability-section">
+            <div class="gcal-availability-section" style="opacity: 0.3; pointer-events: none;">
                 <div class="gcal-availability-header">
                     <h2 class="gcal-section-title">Club Meetings</h2>
                     <p class="gcal-section-subtitle">Click on events to view details and manage your schedule.</p>
