@@ -2,13 +2,101 @@
 (function() {
     'use strict';
 
-    // Default user ID for beta testing
-    const DEFAULT_USER_ID = 1;
+    // Get current user ID from localStorage
+    function getCurrentUserId() {
+        const stored = localStorage.getItem('clubtableCurrentUser');
+        if (stored) {
+            try {
+                const user = JSON.parse(stored);
+                return user.id;
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    // Default user ID for beta testing (fallback)
+    const DEFAULT_USER_ID = getCurrentUserId() || 1;
 
     // Data storage
     let usersData = null;
     let clubsData = null;
     let currentUser = null;
+
+    // Show welcome banner for new users
+    function showWelcomeBanner() {
+        const isNewUser = localStorage.getItem('clubtableNewUser');
+        if (isNewUser === 'true') {
+            // Remove the flag
+            localStorage.removeItem('clubtableNewUser');
+            
+            // Create and show welcome banner
+            const banner = document.createElement('div');
+            banner.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+                z-index: 1000;
+                max-width: 600px;
+                width: 90%;
+                animation: slideDown 0.5s ease-out;
+            `;
+            
+            banner.innerHTML = `
+                <div style="display: flex; align-items: start; gap: 16px;">
+                    <div style="font-size: 32px;">🎉</div>
+                    <div style="flex: 1;">
+                        <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Welcome to Yale Clubs!</h3>
+                        <p style="margin: 0; font-size: 14px; opacity: 0.95;">
+                            Your account has been created. Please complete your profile by adding your phone number, 
+                            college, class year, and a bio to help clubs get to know you better.
+                        </p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; line-height: 1;">×</button>
+                </div>
+            `;
+            
+            // Add animation keyframe
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        transform: translateX(-50%) translateY(-20px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(-50%) translateY(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(banner);
+            
+            // Auto-dismiss after 8 seconds
+            setTimeout(() => {
+                if (banner.parentElement) {
+                    banner.style.animation = 'slideDown 0.5s ease-out reverse';
+                    setTimeout(() => banner.remove(), 500);
+                }
+            }, 8000);
+            
+            // Automatically open edit mode
+            setTimeout(() => {
+                const editButton = document.getElementById('edit-profile-btn');
+                if (editButton) {
+                    editButton.click();
+                }
+            }, 1000);
+        }
+    }
 
     // Load JSON data
     async function loadData() {
@@ -22,14 +110,32 @@
             clubsData = await clubsResponse.json();
 
             initializeProfile();
+            showWelcomeBanner(); // Show welcome banner if new user
         } catch (error) {
             console.error('Error loading data:', error);
         }
     }
 
-    // Get user by ID
+    // Get user by ID - check localStorage first, then fall back to JSON data
     function getUserById(userId) {
-        return usersData.users.find(u => u.id === userId);
+        // First check localStorage for the current user
+        const storedCurrentUser = localStorage.getItem('clubtableCurrentUser');
+        if (storedCurrentUser) {
+            try {
+                const currentUserObj = JSON.parse(storedCurrentUser);
+                if (currentUserObj.id === userId) {
+                    return currentUserObj;
+                }
+            } catch (e) {
+                console.error('Error parsing stored user:', e);
+            }
+        }
+        
+        // Fall back to JSON data
+        if (usersData && usersData.users) {
+            return usersData.users.find(u => u.id === userId);
+        }
+        return null;
     }
 
     // Get clubs for user
@@ -176,6 +282,25 @@
             saveBioBtn.addEventListener('click', function() {
                 const newBio = bioEditTextarea.value.trim();
                 currentUser.bio = newBio;
+                currentUser.updated_at = new Date().toISOString();
+                
+                // Save to localStorage - update current user
+                localStorage.setItem('clubtableCurrentUser', JSON.stringify(currentUser));
+                
+                // Also update in the users array
+                const users = localStorage.getItem('clubtableUsers');
+                if (users) {
+                    try {
+                        const usersArray = JSON.parse(users);
+                        const userIndex = usersArray.findIndex(u => u.id === currentUser.id);
+                        if (userIndex !== -1) {
+                            usersArray[userIndex] = currentUser;
+                            localStorage.setItem('clubtableUsers', JSON.stringify(usersArray));
+                        }
+                    } catch (e) {
+                        console.error('Error updating users array:', e);
+                    }
+                }
                 
                 // Update display
                 const bioContent = document.getElementById('bio-content');
@@ -187,11 +312,8 @@
                 if (bioContentView) bioContentView.style.display = 'block';
                 if (bioContentEdit) bioContentEdit.style.display = 'none';
                 
-                // Show success message (you can add flash banner here)
+                // Show success message
                 showFlash('Bio updated successfully!', 'success');
-                
-                // In a real app, you would save to backend here
-                // saveUserData(currentUser);
             });
         }
 
@@ -239,6 +361,12 @@
                 const college = document.getElementById('edit-college').value.trim();
                 const classYear = document.getElementById('edit-class-year').value.trim();
 
+                // Validate required fields
+                if (!firstName || !lastName || !year || !major) {
+                    showFlash('Please fill in all required fields', 'error');
+                    return;
+                }
+
                 // Update current user object
                 currentUser.first_name = firstName;
                 currentUser.last_name = lastName;
@@ -247,6 +375,25 @@
                 currentUser.phone = phone || null;
                 currentUser.college = college || null;
                 currentUser.class_year = classYear || null;
+                currentUser.updated_at = new Date().toISOString();
+
+                // Save to localStorage - update current user
+                localStorage.setItem('clubtableCurrentUser', JSON.stringify(currentUser));
+                
+                // Also update in the users array
+                const users = localStorage.getItem('clubtableUsers');
+                if (users) {
+                    try {
+                        const usersArray = JSON.parse(users);
+                        const userIndex = usersArray.findIndex(u => u.id === currentUser.id);
+                        if (userIndex !== -1) {
+                            usersArray[userIndex] = currentUser;
+                            localStorage.setItem('clubtableUsers', JSON.stringify(usersArray));
+                        }
+                    } catch (e) {
+                        console.error('Error updating users array:', e);
+                    }
+                }
 
                 // Update display
                 updateProfileDisplay();
@@ -257,9 +404,6 @@
 
                 // Show success message
                 showFlash('Profile updated successfully!', 'success');
-                
-                // In a real app, you would save to backend here
-                // saveUserData(currentUser);
             });
         }
 
