@@ -83,6 +83,30 @@
       "clubs": {
         "1": 2
       }
+    },
+    {
+      "id": 6,
+      "email": "matthew.li@yale.edu",
+      "first_name": "Matthew",
+      "last_name": "Li",
+      "student_id": "OWNER002",
+      "year": "Junior",
+      "major": "Computer Science",
+      "class_year": "2025",
+      "phone": "(203) 555-0124",
+      "college": "Berkeley College",
+      "bio": "Passionate about journalism and storytelling. Managing the Yale Daily News and building a community of student journalists.",
+      "preferences": {
+        "email_notifications": true,
+        "profile_visibility": true
+      },
+      "password": "password123",
+      "type": "club_owner",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z",
+      "clubs": {
+        "3": 5
+      }
     }
   ],
   "club_users": [

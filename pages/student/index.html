@@ -364,12 +364,6 @@
                 return;
             }
 
-            // Validate email is Yale email
-            if (!email.endsWith('@yale.edu')) {
-                showFlash('Please use your Yale email address', 'error');
-                return;
-            }
-
             // Check if user already exists
             const users = getStoredUsers();
             if (users.find(u => u.email === email)) {

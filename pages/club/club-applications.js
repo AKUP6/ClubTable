@@ -48,26 +48,84 @@
         };
     })();
 
-    // Default owner ID
-    const DEFAULT_OWNER_ID = 1;
-
     // Data storage
     let clubUsersData = null;
     let clubsData = null;
     let filteredApplications = [];
     let currentStatusFilter = 'all';
     let currentEditingApp = null;
+    let currentOwner = null;
+
+    // Get current owner from localStorage
+    function getCurrentOwner() {
+        const stored = localStorage.getItem('clubtableCurrentUser');
+        if (stored) {
+            try {
+                return JSON.parse(stored);
+            } catch (e) {
+                console.error('Error parsing current user:', e);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    // Get all users from localStorage
+    function getUsersFromStorage() {
+        const stored = localStorage.getItem('clubtableUsers');
+        if (stored) {
+            try {
+                return JSON.parse(stored);
+            } catch (e) {
+                console.error('Error parsing users:', e);
+                return [];
+            }
+        }
+        return [];
+    }
 
     // Load JSON data
     async function loadData() {
         try {
-            const [usersResponse, clubsResponse] = await Promise.all([
-                fetch('../../database/json/users/club_users.json'),
-                fetch('../../database/json/clubs/clubs.json')
-            ]);
-
-            clubUsersData = await usersResponse.json();
+            const clubsResponse = await fetch('../../database/json/clubs/clubs.json');
             clubsData = await clubsResponse.json();
+
+            // Get current owner
+            currentOwner = getCurrentOwner();
+            if (!currentOwner) {
+                showFlash('Please log in to view applications', 'error');
+                setTimeout(() => {
+                    window.location.href = '/index.html';
+                }, 1500);
+                return;
+            }
+
+            // Build clubUsersData from localStorage
+            const users = getUsersFromStorage();
+            clubUsersData = {
+                users: users,
+                club_users: [] // We'll build this from user.clubs
+            };
+
+            // Build club_users array from each user's clubs
+            users.forEach(user => {
+                if (user.clubs) {
+                    Object.keys(user.clubs).forEach(clubId => {
+                        clubUsersData.club_users.push({
+                            id: `${user.id}-${clubId}`,
+                            user_id: user.id,
+                            club_id: parseInt(clubId),
+                            status_code: user.clubs[clubId],
+                            application_date: user.created_at || new Date().toISOString(),
+                            review_date: user.updated_at,
+                            application_text: `Application from ${user.first_name} ${user.last_name}`,
+                            notes: null,
+                            created_at: user.created_at,
+                            updated_at: user.updated_at
+                        });
+                    });
+                }
+            });
 
             initializeApplications();
         } catch (error) {
@@ -75,13 +133,20 @@
         }
     }
 
-    // Get club owned by owner_id (temporarily club_id 1 for owner_id 1)
+    // Get club owned by owner_id
     function getOwnedClub(ownerId) {
-        // For now, owner_id 1 owns club_id 1 (Yale Debate Association)
-        if (ownerId === 1) {
-            return clubsData.clubs.find(c => c.id === "1");
-        }
-        return null;
+        if (!currentOwner || !currentOwner.clubs) return null;
+
+        // Find the club the owner is admin/leadership of (status code 5)
+        const ownedClubIds = Object.keys(currentOwner.clubs).filter(
+            clubId => currentOwner.clubs[clubId] === 5
+        );
+
+        if (ownedClubIds.length === 0) return null;
+
+        // Return the first owned club
+        const clubId = ownedClubIds[0];
+        return clubsData.clubs.find(c => c.id === clubId);
     }
 
     // Get applications for owned club using applicants dictionary
@@ -247,7 +312,10 @@
     // Filter applications by status
     function filterApplications(status) {
         currentStatusFilter = status;
-        const allApplications = getApplicationsForOwner(DEFAULT_OWNER_ID);
+        
+        if (!currentOwner) return;
+        
+        const allApplications = getApplicationsForOwner(currentOwner.id);
         
         if (status === 'all') {
             filteredApplications = allApplications;
