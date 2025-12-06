@@ -67,12 +67,12 @@ INSERT INTO owners (id, email, first_name, last_name, title, phone, department) 
 
 -- Insert sample club data
 INSERT INTO clubs (id, name, description, meeting_time, location, application_required, application_deadline, contact_emails) VALUES
-(1, 'Yale Debate Association', 'The Yale Debate Association is one of the oldest and most prestigious debate societies at Yale.', 'Tuesdays, 2:00 PM - 4:00 PM', 'Linsly-Chittenden Hall, Room 101', TRUE, '2024-09-15', '["debate@yale.edu", "sarah.chen@yale.edu"]'),
+(1, 'Yale Debate Association', 'The Yale Debate Association is one of the oldest and most prestigious debate societies at Yale.', 'Tuesdays, 2:00 PM - 4:00 PM', 'Linsly-Chittenden Hall, Room 101', TRUE, '09/15/2024', '["debate@yale.edu", "sarah.chen@yale.edu"]'),
 (2, 'Code4Good', 'Code4Good brings together students passionate about using technology for social impact.', 'Wednesdays, 3:00 PM - 5:00 PM', 'Computer Science Building, Room 203', FALSE, NULL, '["code4good@yale.edu"]'),
-(3, 'Yale Daily News', 'The Yale Daily News is the oldest college daily newspaper in the United States.', 'Thursdays, 10:00 AM - 11:30 AM', '202 York Street', TRUE, '2024-09-20', '["editor@yaledailynews.com"]'),
+(3, 'Yale Daily News', 'The Yale Daily News is the oldest college daily newspaper in the United States.', 'Thursdays, 10:00 AM - 11:30 AM', '202 York Street', TRUE, '12/01/2025', '["editor@yaledailynews.com"]'),
 (4, 'Yale Environmental Society', 'The Yale Environmental Society works to promote sustainability on campus.', 'Mondays, 4:00 PM - 5:30 PM', 'Kroon Hall, Room 320', FALSE, NULL, '["environment@yale.edu"]'),
-(5, 'Yale Political Union', 'The Yale Political Union is the largest and most active political organization on campus.', 'Fridays, 7:00 PM - 9:00 PM', 'William L. Harkness Hall', TRUE, '2024-09-18', '["ypu@yale.edu"]'),
-(6, 'Yale A Cappella Group', 'One of Yale\'s premier a cappella groups, we perform at campus events and tour nationally.', 'Sundays, 2:00 PM - 4:00 PM', 'Woolsey Hall', FALSE, '2024-09-25', '["acappella@yale.edu"]');
+(5, 'Yale Political Union', 'The Yale Political Union is the largest and most active political organization on campus.', 'Fridays, 7:00 PM - 9:00 PM', 'William L. Harkness Hall', TRUE, '12/05/2025', '["ypu@yale.edu"]'),
+(6, 'Yale A Cappella Group', 'One of Yale\'s premier a cappella groups, we perform at campus events and tour nationally.', 'Sundays, 2:00 PM - 4:00 PM', 'Woolsey Hall', FALSE, '09/25/2024', '["acappella@yale.edu"]');
 
 -- Insert sample club owner relationships
 INSERT INTO club_owners (id, owner_id, club_id, role, permissions, is_primary) VALUES
