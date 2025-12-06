@@ -108,7 +108,7 @@
                 
                 <!-- Club Owner Portal Link -->
                 <p class="signup-link" style="margin-top: 12px;">
-                    <a href="../club/club-portal.html" style="color: #718096; font-size: 13px;">Club Owner Portal →</a>
+                    <a href="#" id="club-portal-link" style="color: #718096; font-size: 13px;">Club Owner Portal →</a>
                 </p>
             </div>
         </div>
@@ -432,6 +432,32 @@
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 500);
+        });
+
+        // Club portal link handler - auto-login as Alex Martinez
+        document.getElementById('club-portal-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Auto-login as Alex Martinez (Yale Debate Association owner)
+            const users = getStoredUsers();
+            let alexUser = users.find(u => u.email === 'alex.martinez@yale.edu');
+            
+            if (!alexUser) {
+                // If not in localStorage, create default Alex user
+                alexUser = {
+                    id: 1,
+                    email: 'alex.martinez@yale.edu',
+                    first_name: 'Alex',
+                    last_name: 'Martinez',
+                    type: 'club_owner',
+                    password: 'password123',
+                    clubs: { "1": 5 } // Owner of Yale Debate Association
+                };
+                saveUser(alexUser);
+            }
+            
+            setCurrentUser(alexUser);
+            window.location.href = '/pages/club/club-portal.html';
         });
     </script>
     <style>
