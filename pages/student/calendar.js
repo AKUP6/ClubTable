@@ -2,8 +2,23 @@
 (function() {
     'use strict';
 
-    // Default user ID for beta testing
-    const DEFAULT_USER_ID = 1;
+    // Get current user ID from localStorage
+    function getCurrentUserId() {
+        const stored = localStorage.getItem('clubtableCurrentUser');
+        if (stored) {
+            try {
+                const user = JSON.parse(stored);
+                return user.id;
+            } catch (e) {
+                console.error('Error parsing current user:', e);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    // Default user ID for beta testing (fallback)
+    const DEFAULT_USER_ID = getCurrentUserId() || 1;
 
     // Data storage
     let usersData = null;
@@ -63,7 +78,24 @@
 
     // Get user by ID
     function getUserById(userId) {
-        return usersData.users.find(u => u.id === userId);
+        // First check localStorage for the current user
+        const storedCurrentUser = localStorage.getItem('clubtableCurrentUser');
+        if (storedCurrentUser) {
+            try {
+                const currentUserObj = JSON.parse(storedCurrentUser);
+                if (currentUserObj.id === userId) {
+                    return currentUserObj;
+                }
+            } catch (e) {
+                console.error('Error parsing stored user:', e);
+            }
+        }
+        
+        // Fall back to JSON data
+        if (usersData && usersData.users) {
+            return usersData.users.find(u => u.id === userId);
+        }
+        return null;
     }
 
     // Get clubs for user
@@ -214,7 +246,8 @@
     // Generate events for the current period (week or month view)
     function generateEventsForPeriod() {
         events = [];
-        const userClubs = getUserClubs(DEFAULT_USER_ID);
+        const userId = getCurrentUserId() || DEFAULT_USER_ID;
+        const userClubs = getUserClubs(userId);
 
         userClubs.forEach((club, clubIndex) => {
             const clubColor = clubColors[clubIndex % clubColors.length];

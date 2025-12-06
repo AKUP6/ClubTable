@@ -2,8 +2,23 @@
 (function() {
     'use strict';
 
-    // Default user ID for beta testing
-    const DEFAULT_USER_ID = 1;
+    // Get current user ID from localStorage
+    function getCurrentUserId() {
+        const stored = localStorage.getItem('clubtableCurrentUser');
+        if (stored) {
+            try {
+                const user = JSON.parse(stored);
+                return user.id;
+            } catch (e) {
+                console.error('Error parsing current user:', e);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    // Default user ID for beta testing (fallback)
+    const DEFAULT_USER_ID = getCurrentUserId() || 1;
 
     // Data storage
     let usersData = null;
@@ -27,9 +42,26 @@
         }
     }
 
-    // Get user by ID
+    // Get user by ID - check localStorage first, then fall back to JSON data
     function getUserById(userId) {
-        return usersData.users.find(u => u.id === userId);
+        // First check localStorage for the current user
+        const storedCurrentUser = localStorage.getItem('clubtableCurrentUser');
+        if (storedCurrentUser) {
+            try {
+                const currentUserObj = JSON.parse(storedCurrentUser);
+                if (currentUserObj.id === userId) {
+                    return currentUserObj;
+                }
+            } catch (e) {
+                console.error('Error parsing stored user:', e);
+            }
+        }
+        
+        // Fall back to JSON data
+        if (usersData && usersData.users) {
+            return usersData.users.find(u => u.id === userId);
+        }
+        return null;
     }
 
     // Get club user relationships for a user
@@ -42,9 +74,56 @@
 
     // Get clubs for user with full relationship data
     function getUserClubsWithDetails(userId) {
-        const relationships = getUserClubRelationships(userId);
+        const user = getUserById(userId);
+        let userClubs = [];
         
-        return relationships.map(rel => {
+        // First, try to get clubs from user's clubs object (for localStorage users)
+        if (user && user.clubs && typeof user.clubs === 'object') {
+            const clubIds = Object.keys(user.clubs);
+            userClubs = clubIds.map(clubId => {
+                const club = clubsData.clubs.find(c => c.id === clubId);
+                if (!club) return null;
+                
+                const statusCode = user.clubs[clubId];
+                // Map status code to status string
+                const statusCodeMap = {
+                    1: 'accepted',
+                    2: 'accepted',
+                    3: 'pending',
+                    4: 'accepted',
+                    5: 'accepted'
+                };
+                
+                const status = statusCodeMap[statusCode] || 'accepted';
+                
+                // Map status to role/display text
+                const roleMap = {
+                    1: 'Member',
+                    2: 'Member',
+                    3: 'Pending',
+                    4: 'Active Member',
+                    5: 'Leadership'
+                };
+                
+                return {
+                    id: clubId,
+                    name: club.name,
+                    status: status,
+                    statusCode: statusCode,
+                    role: roleMap[statusCode] || 'Member',
+                    display: roleMap[statusCode] || 'Member',
+                    applicationDate: null,
+                    reviewDate: null,
+                    joinDate: '',
+                    club: club,
+                    relationship: null
+                };
+            }).filter(item => item !== null);
+        }
+        
+        // Also check club_users relationships (from JSON data)
+        const relationships = getUserClubRelationships(userId);
+        const relationshipClubs = relationships.map(rel => {
             const club = clubsData.clubs.find(c => c.id === String(rel.club_id));
             if (!club) return null;
 
@@ -75,6 +154,16 @@
                 relationship: rel
             };
         }).filter(item => item !== null);
+        
+        // Merge both sources, avoiding duplicates
+        const allClubs = [...userClubs];
+        relationshipClubs.forEach(relClub => {
+            if (!allClubs.find(c => c.id === relClub.id)) {
+                allClubs.push(relClub);
+            }
+        });
+        
+        return allClubs;
     }
 
     // Format date for display
@@ -100,10 +189,14 @@
 
     // Initialize dashboard with user data
     function initializeDashboard() {
-        currentUser = getUserById(DEFAULT_USER_ID);
+        // Get the actual current user ID
+        const userId = getCurrentUserId() || DEFAULT_USER_ID;
+        currentUser = getUserById(userId);
         
         if (!currentUser) {
             console.error('Could not load user data');
+            // Redirect to login if no user found
+            window.location.href = '../student/index.html';
             return;
         }
 
@@ -114,7 +207,7 @@
         }
 
         // Get user's clubs with details
-        const userClubs = getUserClubsWithDetails(DEFAULT_USER_ID);
+        const userClubs = getUserClubsWithDetails(userId);
         const stats = calculateStatistics(userClubs);
 
         // Update summary cards
