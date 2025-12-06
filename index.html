@@ -233,7 +233,15 @@
 
         function saveUser(user) {
             const users = getStoredUsers();
-            users.push(user);
+            // Check if user already exists
+            const existingIndex = users.findIndex(u => u.id === user.id || u.email === user.email);
+            if (existingIndex !== -1) {
+                // Update existing user
+                users[existingIndex] = user;
+            } else {
+                // Add new user
+                users.push(user);
+            }
             localStorage.setItem('clubtableUsers', JSON.stringify(users));
         }
 
@@ -247,6 +255,31 @@
         function setCurrentUser(user) {
             localStorage.setItem('clubtableCurrentUser', JSON.stringify(user));
         }
+
+        // Load test users from JSON file into localStorage
+        async function loadTestUsers() {
+            try {
+                const response = await fetch('/database/json/users/club_users.json');
+                const data = await response.json();
+                
+                if (data.users && Array.isArray(data.users)) {
+                    const existingUsers = getStoredUsers();
+                    
+                    // Only load if localStorage is empty or doesn't have these users
+                    if (existingUsers.length === 0 || !existingUsers.find(u => u.email === 'alex.martinez@yale.edu')) {
+                        data.users.forEach(user => {
+                            saveUser(user);
+                        });
+                        console.log('Test users loaded successfully');
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading test users:', error);
+            }
+        }
+
+        // Initialize test users on page load
+        loadTestUsers();
 
         // Login form handler
         document.getElementById('login-form').addEventListener('submit', function(e) {
