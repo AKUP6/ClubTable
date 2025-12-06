@@ -297,7 +297,12 @@
                 setCurrentUser(user);
                 showFlash('Login successful!', 'success');
                 setTimeout(() => {
-                    window.location.href = '/pages/student/dashboard.html';
+                    // Redirect based on user type
+                    if (user.type === 'club_owner') {
+                        window.location.href = '/pages/club/club-portal.html';
+                    } else {
+                        window.location.href = '/pages/student/dashboard.html';
+                    }
                 }, 500);
             } else {
                 showFlash('Invalid email/username or password', 'error');
