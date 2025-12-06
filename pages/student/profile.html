@@ -120,33 +120,9 @@
             <div class="profile-section">
                 <div class="section-header">
                     <h3 class="section-title">My Clubs</h3>
-                    <a href="#" class="section-link">View all</a>
                 </div>
-                <div class="clubs-list">
-                    <div class="club-item">
-                        <div class="club-icon">Y</div>
-                        <div class="club-info">
-                            <div class="club-name">Yale Debate Association</div>
-                            <div class="club-role">Member</div>
-                        </div>
-                        <a href="#" class="club-view-link">View</a>
-                    </div>
-                    <div class="club-item">
-                        <div class="club-icon">Y</div>
-                        <div class="club-info">
-                            <div class="club-name">Yale Daily News</div>
-                            <div class="club-role">Member</div>
-                        </div>
-                        <a href="#" class="club-view-link">View</a>
-                    </div>
-                    <div class="club-item">
-                        <div class="club-icon">C</div>
-                        <div class="club-info">
-                            <div class="club-name">Code4Good</div>
-                            <div class="club-role">Leadership</div>
-                        </div>
-                        <a href="#" class="club-view-link">View</a>
-                    </div>
+                <div class="clubs-list" id="profile-clubs-list">
+                    <!-- Clubs will be populated by JavaScript -->
                 </div>
             </div>
 
@@ -187,6 +163,22 @@
 
         </div>
     </main>
+
+    <!-- Club Details Modal -->
+    <div id="club-modal" class="club-modal">
+        <div class="club-modal-overlay"></div>
+        <div class="club-modal-content">
+            <div class="club-modal-header">
+                <h2 class="club-modal-title" id="club-modal-title">Club Name</h2>
+                <button class="club-modal-close" id="club-modal-close" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="club-modal-body" id="club-modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
 
     <script src="navbar.js"></script>
     <script src="profile.js"></script>

@@ -531,15 +531,17 @@
 
     // Load and display user's clubs
     function loadUserClubs() {
-        const clubsList = document.querySelector('.clubs-list');
+        const clubsList = document.getElementById('profile-clubs-list');
         if (!clubsList) return;
 
-        const userClubs = getUserClubs(DEFAULT_USER_ID);
+        const userId = getCurrentUserId() || DEFAULT_USER_ID;
+        const userClubs = getUserClubs(userId);
 
         if (userClubs.length === 0) {
             clubsList.innerHTML = `
                 <div style="text-align: center; padding: 20px; color: #666;">
-                    You haven't joined any clubs yet.
+                    <p style="margin-bottom: 12px;">You haven't joined any clubs yet.</p>
+                    <a href="clubs.html" style="color: #667eea; text-decoration: none; font-weight: 500;">Browse Clubs →</a>
                 </div>
             `;
             return;
@@ -553,13 +555,211 @@
                 <div class="club-item">
                     <div class="club-icon">${clubIcon}</div>
                     <div class="club-info">
-                        <div class="club-name">${club.name}</div>
-                        <div class="club-role">${club.role}</div>
+                        <div class="club-name">${escapeHtml(club.name)}</div>
+                        <div class="club-role">${escapeHtml(club.role)}</div>
                     </div>
-                    <a href="#" class="club-view-link">View</a>
+                    <a href="#" class="club-view-link" data-club-id="${club.id}">View</a>
                 </div>
             `;
         }).join('');
+
+        // Setup click handlers for View links
+        document.querySelectorAll('.club-view-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const clubId = this.getAttribute('data-club-id');
+                const club = clubsData.clubs.find(c => c.id === clubId);
+                if (club) {
+                    showClubModal(club);
+                }
+            });
+        });
+    }
+
+    // Show club modal with club data
+    function showClubModal(club) {
+        const modal = document.getElementById('club-modal');
+        const modalTitle = document.getElementById('club-modal-title');
+        const modalBody = document.getElementById('club-modal-body');
+        
+        if (!modal || !modalTitle || !modalBody) return;
+
+        // Set title
+        modalTitle.textContent = club.name;
+
+        // Build modal content
+        let content = '';
+
+        // Cover image (if exists)
+        if (club.coverImage) {
+            content += `<img src="${escapeHtml(club.coverImage)}" alt="${escapeHtml(club.name)} cover" class="club-modal-cover">`;
+        }
+
+        // Badges
+        content += '<div class="club-modal-badges">';
+        if (club.auditionRequired) {
+            content += `<span class="club-modal-badge audition"><i class="fas fa-microphone"></i> Requires Audition</span>`;
+        } else if (club.applicationRequired) {
+            content += `<span class="club-modal-badge application"><i class="fas fa-clipboard-list"></i> Requires Application</span>`;
+        } else {
+            content += `<span class="club-modal-badge open"><i class="fas fa-check-circle"></i> Open Join</span>`;
+        }
+        if (club.applicationDeadline && (club.applicationRequired || club.auditionRequired)) {
+            content += `<span class="club-modal-section-content">Deadline: ${escapeHtml(club.applicationDeadline)}</span>`;
+        }
+        content += '</div>';
+
+        // Description
+        if (club.description) {
+            content += `
+                <div class="club-modal-section">
+                    <h3 class="club-modal-section-title">About</h3>
+                    <div class="club-modal-section-content club-modal-description">${escapeHtml(club.description)}</div>
+                </div>
+            `;
+        }
+
+        // Owner / Liaison
+        content += `
+            <div class="club-modal-section">
+                <h3 class="club-modal-section-title">Owner / Liaison</h3>
+                <div class="club-modal-info-item">
+                    <i class="fas fa-user"></i>
+                    <div class="club-modal-info-item-content">
+                        <div class="club-modal-info-item-value">${escapeHtml(Array.isArray(club.owner) ? club.owner.join(', ') : club.owner)}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Contact Emails
+        if (club.contactEmails && club.contactEmails.length > 0) {
+            content += `
+                <div class="club-modal-section">
+                    <h3 class="club-modal-section-title">Contact</h3>
+                    <ul class="club-modal-contact-list">
+            `;
+            club.contactEmails.forEach(email => {
+                content += `<li><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></li>`;
+            });
+            content += `
+                    </ul>
+                </div>
+            `;
+        }
+
+        // Meeting Time
+        if (club.meetingTime) {
+            content += `
+                <div class="club-modal-section">
+                    <h3 class="club-modal-section-title">Meeting Time</h3>
+                    <div class="club-modal-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="club-modal-info-item-content">
+                            <div class="club-modal-info-item-value">${escapeHtml(club.meetingTime)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Location
+        if (club.location) {
+            content += `
+                <div class="club-modal-section">
+                    <h3 class="club-modal-section-title">Location</h3>
+                    <div class="club-modal-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="club-modal-info-item-content">
+                            <div class="club-modal-info-item-value">${escapeHtml(club.location)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Application / Audition Info
+        if (club.applicationInfo || club.auditionInfo) {
+            const infoTitle = club.auditionInfo ? 'Audition Information' : 'Application Information';
+            const infoContent = club.auditionInfo || club.applicationInfo;
+            content += `
+                <div class="club-modal-section">
+                    <h3 class="club-modal-section-title">${infoTitle}</h3>
+                    <div class="club-modal-section-content club-modal-description">${escapeHtml(infoContent)}</div>
+                </div>
+            `;
+        }
+
+        // Extra Metadata
+        if (club.metadata && Object.keys(club.metadata).length > 0) {
+            content += `
+                <div class="club-modal-section">
+                    <h3 class="club-modal-section-title">Additional Information</h3>
+                    <div class="club-modal-metadata">
+            `;
+            Object.entries(club.metadata).forEach(([key, value]) => {
+                content += `
+                    <div class="club-modal-metadata-item">
+                        <span class="club-modal-metadata-label">${escapeHtml(key)}</span>
+                        <span class="club-modal-metadata-value">${escapeHtml(typeof value === 'string' ? value : JSON.stringify(value))}</span>
+                    </div>
+                `;
+            });
+            content += `
+                    </div>
+                </div>
+            `;
+        }
+
+        modalBody.innerHTML = content;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Focus trap - focus on close button
+        const closeBtn = document.getElementById('club-modal-close');
+        if (closeBtn) {
+            closeBtn.focus();
+        }
+    }
+
+    // Hide club modal
+    function hideClubModal() {
+        const modal = document.getElementById('club-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Setup modal close handlers
+    function setupModalClose() {
+        const modal = document.getElementById('club-modal');
+        const closeBtn = document.getElementById('club-modal-close');
+        const overlay = modal?.querySelector('.club-modal-overlay');
+
+        // Close button
+        if (closeBtn) {
+            closeBtn.addEventListener('click', hideClubModal);
+        }
+
+        // Click outside to close
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    hideClubModal();
+                }
+            });
+        }
+
+        // ESC key to close
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('club-modal');
+                if (modal && modal.classList.contains('active')) {
+                    hideClubModal();
+                }
+            }
+        });
     }
 
     // Load and display user preferences
@@ -590,9 +790,13 @@
 
     // Start when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadData);
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupModalClose();
+        });
     } else {
         loadData();
+        setupModalClose();
     }
 })();
 
