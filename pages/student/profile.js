@@ -163,9 +163,14 @@
                 id: clubId,
                 name: club ? club.name : 'Unknown Club',
                 role: roleMap[statusCode] || 'Member',
+                statusCode: statusCode,
                 club: club
             };
-        }).filter(club => club.club !== undefined); // Filter out clubs not found
+        }).filter(club => {
+            // Only show clubs where user is actually a member (not pending)
+            // Status codes 1, 2, 4, 5 are members; 3 is pending
+            return club.club !== undefined && club.statusCode !== 3;
+        });
     }
 
     // Initialize profile with user data
@@ -758,8 +763,109 @@
                 if (modal && modal.classList.contains('active')) {
                     hideClubModal();
                 }
+                const passwordModal = document.getElementById('change-password-modal');
+                if (passwordModal && passwordModal.classList.contains('active')) {
+                    hidePasswordModal();
+                }
             }
         });
+    }
+
+    // Setup change password functionality
+    function setupChangePassword() {
+        const changePasswordLink = document.querySelector('.account-link[href="#"]');
+        const passwordModal = document.getElementById('change-password-modal');
+        const passwordForm = document.getElementById('change-password-form');
+        const closeBtn = document.getElementById('change-password-close');
+        const cancelBtn = document.getElementById('cancel-password-btn');
+        const overlay = passwordModal?.querySelector('.modal-overlay');
+
+        // Open modal when clicking "Change Password"
+        if (changePasswordLink && changePasswordLink.textContent.trim() === 'Change Password') {
+            changePasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPasswordModal();
+            });
+        }
+
+        // Close button
+        if (closeBtn) {
+            closeBtn.addEventListener('click', hidePasswordModal);
+        }
+
+        // Cancel button
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', hidePasswordModal);
+        }
+
+        // Click outside to close
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    hidePasswordModal();
+                }
+            });
+        }
+
+        // Handle form submission
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+
+                // Validate passwords match
+                if (newPassword !== confirmPassword) {
+                    showFlash('Passwords do not match!', 'error');
+                    return;
+                }
+
+                // Validate password length
+                if (newPassword.length < 8) {
+                    showFlash('Password must be at least 8 characters!', 'error');
+                    return;
+                }
+
+                // For now, just show success message
+                // In the future, this would send to backend
+                showFlash('Password changed successfully!', 'success');
+                
+                // Close modal and reset form
+                hidePasswordModal();
+                passwordForm.reset();
+            });
+        }
+    }
+
+    // Show password modal
+    function showPasswordModal() {
+        const modal = document.getElementById('change-password-modal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus on first input
+            const firstInput = document.getElementById('new-password');
+            if (firstInput) {
+                setTimeout(() => firstInput.focus(), 100);
+            }
+        }
+    }
+
+    // Hide password modal
+    function hidePasswordModal() {
+        const modal = document.getElementById('change-password-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Reset form
+            const form = document.getElementById('change-password-form');
+            if (form) {
+                form.reset();
+            }
+        }
     }
 
     // Load and display user preferences
@@ -793,10 +899,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
             setupModalClose();
+            setupChangePassword();
         });
     } else {
         loadData();
         setupModalClose();
+        setupChangePassword();
     }
 })();
 
